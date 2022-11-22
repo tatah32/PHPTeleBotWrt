@@ -13,6 +13,7 @@ C_CORE_TYPE=$(uci -q get openclash.config.core_type)
 cfg_yaml=$(ls /etc/openclash/config/ | grep -E '.yaml')
 banner=$(cat src/plugins/banner)
 printf "$banner
+=============
 OpenClash   : $op_version
 Core Tun    : $core_tun_version
 Core Meta   : $core_meta_version
@@ -22,4 +23,5 @@ Core Type   : $C_CORE_TYPE
 Core        : $core_version
 Config List :
 $cfg_yaml
-LogTime     : $LOGTIME"
+LogTime     : $LOGTIME
+============="
