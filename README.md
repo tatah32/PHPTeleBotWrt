@@ -69,9 +69,12 @@ git clone https://github.com/helmiau/PHPTeleBotWrt && chmod +x PHPTeleBotWrt/src
 
 ```sh
 cd PHPTeleBotWrt
-cat "5227493446:AAGN1BeLV0I_7KIAyq_4aE6BZfH_fXq9yGQ" > databot
-cat "botUsername" >> databot
+echo "813651681:asdiwAuib54_ASDE81_dwa5s1SV" > databot
+echo "botUsername" >> databot
 ```
+Note:
+- Replace **`813651681:asdiwAuib54_ASDE81_dwa5s1SV`** with your **Telegram Bot API Token**
+- Replace **`botUsername`** with your **Telegram Bot Username**
 
 ## Usage
 ### About `databot' file inside PHPTeleBotWrt path
