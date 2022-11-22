@@ -126,9 +126,15 @@ or
 kill %job_number_from_check_bot_runner_command
 ```
 
-Auto Start Bot after reboot / internet off
+Auto Start on boot by putting these codes to **`LuCI - System - Startup - Local Startup`**
 ```sh
-add scheduled tasks
+cd PHPTeleBotWrt && php8-cli index.php
+```
+Note: Paste above codes before **`exit`** command
+
+
+Add commands below to **`LuCI - System - Scheduled Tasks`** then save it there
+```sh
 */5 * * * * cd PHPTeleBotWrt && php8-cli index.php
 ```
 
