@@ -95,10 +95,26 @@ Check bot runner in background
 ```sh
 jobs
 ```
+Then screen will show
+```sh
+root@HelmiWrt  on git:master x$~/PHPTeleBotWrt php8-cli index.php &>/dev/null &
+[1] 15530 <<------- THIS IS JOB ID
+ ^-------- THIS IS JOB NUMBER
+ 
+root@HelmiWrt  on git:master x$~/PHPTeleBotWrt jobs
+[1]  + running    php8-cli index.php &> /dev/null
+ ^-------- THIS IS JOB NUMBER
+```
 
 Stop bot in background
 ```sh
 kill job_id_from_check_bot_runner_command
+```
+
+or 
+
+```sh
+kill %job_number_from_check_bot_runner_command
 ```
 
 Auto Start Bot after reboot / internet off
