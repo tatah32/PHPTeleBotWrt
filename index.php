@@ -4,7 +4,7 @@ require_once __DIR__.'/src/xc.php';
 
 // Read token & username
 function readToken($input){
-    $TOKENr = file_get_contents("Xppai.WRT");
+    $TOKENr = file_get_contents("databot");
     $raw = explode("\n",$TOKENr);
     $TOKEN = $raw[0];
     $USERNAME = $raw[1];
@@ -21,7 +21,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 $bot->cmd('/ping','yes');
 
 // start cmd & cmd list
-$bot->cmd('/start',"Welcome to XppaiWRT\n/cmdlist to see all comand\nTelegram Support : @OppaiCyber");
+$bot->cmd('/start',"Welcome to PHPTelebot\n/cmdlist to see all comand\nTelegram Support : @OppaiCyber");
 $bot->cmd('/cmdlist', function () {
     $options = ['parse_mode' => 'html','reply' => true];
     return Bot::sendMessage("<code>
@@ -32,19 +32,19 @@ $bot->cmd('/cmdlist', function () {
  ↳/aria2resume   | Resume all
 📁OpenClash Command
  ↳/oc        | OC Information
- ↳/proxies   | Proxies status 
- ↳/rules     | Rule list 
+ ↳/proxies   | Proxies status
+ ↳/rules     | Rule list
 📁System Information
- ↳/vnstat    | Bandwidth usage 
- ↳/memory    | Memory status 
- ↳/myip      | Get ip details 
+ ↳/vnstat    | Bandwidth usage
+ ↳/memory    | Memory status
+ ↳/myip      | Get ip details
  ↳/myxl 087x | MyXL Info
- ↳/speedtest | Speedtest 
+ ↳/speedtest | Speedtest
  ↳/ping      | Ping bot
  ↳/sysinfo   | System Information</code>",$options);
 });
 
-// OpenWRT Command 
+// OpenWRT Command
 $bot->cmd('/proxies', function () {
     $options = ['parse_mode' => 'html','reply' => true];
     return Bot::sendMessage("<code>".Proxies()."</code>",$options);
@@ -116,7 +116,7 @@ $bot->cmd('/aria2resume', function () {
 
 //inline command
 $bot->on('inline', function ($cmd,$input) {
-    
+
     if($cmd == 'proxies'){
         $results[] = [
         'type' => 'article',
@@ -142,7 +142,7 @@ $bot->on('inline', function ($cmd,$input) {
         'message_text' => "<code>".MyXL($input)."</code>",
         ];
     }
-    
+
     $options = [
         'cache_time' => 3600,
     ];

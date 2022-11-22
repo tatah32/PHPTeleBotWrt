@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # sysinfo.sh dla OpenWRT AA Cezary Jackiewicz 2013
-# 
+#
 #	1.00	CJ	Pierwsza wersja kodu
 #	1.01	RD	Drobna przebudowa
 #	1.02	RD	Korekta b³êdu wy¶w. zajeto¶ci Flash-a, dodanie kolorów
@@ -13,8 +13,8 @@
 #	1.08	RD	Modyfikacja wy¶wietlania DNS-ów dla wan, dodanie uptime dla interfejsów
 #	1.09	RD	Dodanie statusu "Down" dla wy³±czonego wifi, zmiana wy¶wietlania dla WLAN(sta)
 #	1.10	RD	Korekta wy¶wietlania dla WLAN(sta)
-#	1.11	RD	Korekta wy¶wietlania stanu pamiêci, sugestie @dopsz 
-#	1.12	RD	Zmiana kolejno¶ci wy¶wietlania warto¶ci stanu pamiêci + kosmetyka 
+#	1.11	RD	Korekta wy¶wietlania stanu pamiêci, sugestie @dopsz
+#	1.12	RD	Zmiana kolejno¶ci wy¶wietlania warto¶ci stanu pamiêci + kosmetyka
 #	1.13	RD	Dodanie info o dhcp w LAN, zmiana sposobu wy¶wietlania informacji o LAN
 #	1.14	RD	Dodanie informacji o ostatnich 5 b³êdach
 #	1.15	RD	Zmiana stderr
@@ -177,8 +177,8 @@ print_line() { # <String to Print>, [[<String to Print>] ...]
 	fi
 }
 
-footer_xppaiwrt() {
-	printf "Mod: XppaiWRT"
+catatan() {
+	printf "Mod: XppaiWRT x PHPTeleBot"
 }
 
 print_machine() {
@@ -222,7 +222,7 @@ print_fs_summary() { # <Mount point> <Label>
 print_disk() {
 	local Overlay=$(awk '$3=="overlayfs"{print $2}' /proc/mounts 2>/dev/null)
 	if [ "$Overlay" != "" ]; then
-		print_fs_summary /overlay "Flash"		
+		print_fs_summary /overlay "Flash"
 	fi
 	if [ "$Overlay" == "" ] || [ "$Overlay" != "/" ]; then
 		print_fs_summary / "RootFS"
@@ -312,7 +312,7 @@ print_wan() {
 									json_get_var Gateway6 nexthop;;
 							esac
 							json_select ".."
-						done	
+						done
 					fi
 					json_select
 					if json_get_type Status dns_server && [ "$Status" = array ]; then
@@ -334,7 +334,7 @@ print_wan() {
 					fi
 				fi
 			done
-		fi 
+		fi
 	done
 }
 
@@ -386,7 +386,7 @@ print_lan() {
 					[ "$IP6" != "" ] && print_line "LAN: $AddrColor$IP6$NormalColor($Iface)"
 				fi
 			done
-		fi 
+		fi
 	done
 }
 
@@ -459,7 +459,7 @@ print_wan
 print_lan
 print_wlan
 print_vpn
-footer_xppaiwrt
+catatan
 
 finalize
 exit 0

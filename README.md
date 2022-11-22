@@ -1,10 +1,6 @@
-# XppaiWRT
+# PHPTelebot
 - Telegram bot framework written in PHP for OpenWRT
 
-## Tested on
-* [**Reyre Firmware OC OnLy 28.09.22**](https://www.youtube.com/watch?v=vtjw38V2ybA) -> Speedtest bug
-* [**Reyre Firmware OC OnLy 27.10.22**](https://www.youtube.com/watch?v=0KWgy6P2PVYA) -> Speedtest Fixed | vnstat Bug
-* [**Reyre Firmware OC OnLy 06.11.22**](https://www.youtube.com/watch?v=SBHcJJC8ln0) -> Working Perfectly
 ## Features
 
 * Support Long Polling and Webhook.
@@ -13,41 +9,16 @@
 * Openclash Information
 * Simple, easy to use.
 * Inline Command
-* Speedtest 
+* Speedtest
 * Sysinfo
 * Memory
 * Vnstat
 * My IP
 * Aria2
 * MyXL
- 
-## Commands
 
-Commands list
- * /aria2add      | Add task
- * /aria2stats    | Aria2 status
- * /aria2pause    | Pause all
- * /aria2resume   | Resume all
- * /oc        | OC Information
- * /proxies   | Proxies status 
- * /rules     | Rule list 
- * /vnstat    | Bandwidth usage 
- * /memory    | Memory status 
- * /myip      | Get ip details 
- * /myxl 087x | MyXL Info
- * /speedtest | Speedtest 
- * /ping      | Ping bot
- * /sysinfo   | System Information
-
-## How To Update XppaiWRT
-```shell
-git reset --hard
-git pull
-chmod +x src/plugins/*.sh
-```
- 
 # 📷 Screenshots
-##### Edit `Xppai.WRT` with your own Bot Token
+##### Edit `databot` with your own Bot Token
 ![bottoken](https://i.ibb.co/vP7csgQ/TokenBot.png)
 ##### Starting Bot
 ![Startingbot](https://i.ibb.co/mcYqq3S/startbot.png)
@@ -67,7 +38,7 @@ chmod +x src/plugins/*.sh
 ![Speedtest](https://i.ibb.co/r3cV90Y/speedtest.png)
 ##### /sysinfo
 ![sysinfo](https://i.ibb.co/2tqS3cM/sysinfo.png)
-##### /vnstat `-d or -h or -m` 
+##### /vnstat `-d or -h or -m`
 ![sysinfo](https://i.ibb.co/0ycJhvP/vnstat.png)
 
 ## Requirements
@@ -79,13 +50,9 @@ chmod +x src/plugins/*.sh
 
 ## Installation
 
-### Follow Tutorial from Youtube (php7)
-[Install OpenWrt PHP Telegram Bot By XppaiWRT | PHP7 REYRE-STB
-](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
-
 ### Install from Terminal
 
-Make sure all requirements is installed on your `OpenWRT`:
+Make sure all requirements is installed on your OpenWRT:
 
 ```bash
 opkg update
@@ -93,13 +60,15 @@ opkg install git
 opkg install git-http
 opkg install php8-cli
 opkg install php8-mod-curl
-git clone https://github.com/OppaiCyber/XppaiWRT &&  chmod +x XppaiWRT/src/plugins/*.sh
+git clone https://github.com/helmiau/PHPTeleBotWrt &&  chmod +x PHPTeleBotWrt/src/plugins/*.sh
 ```
 
+>  Skip opkg update and opkg install if you using HelmiWrt OS 2022-10-22 builds or newer.
+
 ## Usage
-### Edit `Xppai.WRT` before running
+### Edit `databot` before running
 ```
-Edit Xppai.WRT with your Bot Token & Bot Username (without @)
+Edit databot with your Bot Token & Bot Username (without @)
 ```
 
 Start Screen
@@ -107,18 +76,52 @@ Start Screen
 screen -S bot
 ```
 
-Enter XppaiWRT Directory
+Enter **PHPTeleBotWrt** Directory
 ```shell
-cd XppaiWRT
+cd PHPTeleBotWrt
 ```
 
 Start bot
 ```shell
-php8-cli index.php 
+php8-cli index.php
 ```
 
 Auto Start Bot after reboot / internet off
 ```
 add scheduled tasks
-*/5 * * * * cd XppaiWRT && php8-cli index.php
+*/5 * * * * cd PHPTeleBotWrt && php8-cli index.php
+```
+
+### Follow Installation Tutorial from Youtube (php7)
+[Install OpenWrt PHP Telegram Bot By XppaiWRT | PHP7 REYRE-STB
+](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
+
+## Commands
+
+Commands list
+ * /aria2add      | Add task
+ * /aria2stats    | Aria2 status
+ * /aria2pause    | Pause all
+ * /aria2resume   | Resume all
+ * /oc        | OC Information
+ * /proxies   | Proxies status
+ * /rules     | Rule list
+ * /vnstat    | Bandwidth usage
+ * /memory    | Memory status
+ * /myip      | Get ip details
+ * /myxl 087x | MyXL Info
+ * /speedtest | Speedtest
+ * /ping      | Ping bot
+ * /sysinfo   | System Information
+
+## Tested on
+* [**Reyre Firmware OC OnLy 28.09.22**](https://www.youtube.com/watch?v=vtjw38V2ybA) -> Speedtest bug
+* [**Reyre Firmware OC OnLy 27.10.22**](https://www.youtube.com/watch?v=0KWgy6P2PVYA) -> Speedtest Fixed | vnstat Bug
+* [**Reyre Firmware OC OnLy 06.11.22**](https://www.youtube.com/watch?v=SBHcJJC8ln0) -> Working Perfectly
+
+## How To Update PHPTelebot
+```shell
+git reset --hard
+git pull
+chmod +x src/plugins/*.sh
 ```

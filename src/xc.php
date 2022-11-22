@@ -67,7 +67,7 @@ $final = "⏱ Type | Name | Delay\n";
         $color = delayColor($delay);
         $final .= "$color $type | $name | $delay ms \n";
     }
-return $final."Alpha Ver - XppaiWRT";
+return $final."Alpha Ver - PHPTeleBot";
 }
 
 function Rules(){
@@ -122,7 +122,7 @@ function myip(){
     $timezone = $data['timezone'];
     $as = $data['as'];
     $ip = $data['query'];
-    $result = "ISP : $isp\n↳ Address : $as \n↳ IP : $ip \n↳ Region | City : $region | $city \n↳ Timezone : $timezone \n↳ Country : $country | $countryCode \n↳ XppaiWRT";
+    $result = "ISP : $isp\n↳ Address : $as \n↳ IP : $ip \n↳ Region | City : $region | $city \n↳ Timezone : $timezone \n↳ Country : $country | $countryCode \n↳ PHPTeleBot";
     return $result;
 }
 

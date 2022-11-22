@@ -132,13 +132,13 @@ class PHPTelebot
     {
         try {
             if (php_sapi_name() == 'cli') {
-                echo 'XppaiWRT Running | Start bot on @'.$this->readUsername();
+                echo 'PHPTeleBot Running | Start bot on @'.$this->readUsername();
                 echo "\nMode\t: Long Polling\n";
                 $options = getopt('q', ['quiet']);
                 if (isset($options['q']) || isset($options['quiet'])) {
                     self::$debug = false;
                 }
-                echo "Debug\t: ".(self::$debug ? 'ON' : 'OFF')."\nAlways keep your XppaiWRT updated with `git pull`\n";
+                echo "Debug\t: ".(self::$debug ? 'ON' : 'OFF')."\nAlways keep your PHPTeleBot updated with `git pull`\n";
                 $this->longPoll();
             } else {
                 $this->webhook();
@@ -209,7 +209,7 @@ class PHPTelebot
 
     private function readUsername()
     {
-        $TOKENr = file_get_contents("./Xppai.WRT");
+        $TOKENr = file_get_contents("./databot");
         $raw = explode("\n",$TOKENr);
         $USERNAME = $raw[1];
         return $USERNAME;
