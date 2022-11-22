@@ -87,7 +87,7 @@ php8-cli index.php
 ```
 
 Auto Start Bot after reboot / internet off
-```
+```sh
 add scheduled tasks
 */5 * * * * cd PHPTeleBotWrt && php8-cli index.php
 ```
@@ -97,7 +97,6 @@ add scheduled tasks
 ](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
 
 ## Commands
-
 Commands list
  * /aria2add      | Add task
  * /aria2stats    | Aria2 status
@@ -119,8 +118,8 @@ Commands list
 * [**Reyre Firmware OC OnLy 27.10.22**](https://www.youtube.com/watch?v=0KWgy6P2PVYA) -> Speedtest Fixed | vnstat Bug
 * [**Reyre Firmware OC OnLy 06.11.22**](https://www.youtube.com/watch?v=SBHcJJC8ln0) -> Working Perfectly
 
-## How To Update PHPTelebot
-```shell
+## How To Update PHPTeleBotWrt
+```sh
 git reset --hard
 git pull
 chmod +x src/plugins/*.sh

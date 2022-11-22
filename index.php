@@ -21,7 +21,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 $bot->cmd('/ping','yes');
 
 // start cmd & cmd list
-$bot->cmd('/start',"Welcome to PHPTelebot\n/cmdlist to see all comand\nTelegram Support : @OppaiCyber");
+$bot->cmd('/start',"Welcome to PHPTeleBotWrt\n/cmdlist to see all comand\n Support : https://github.com/helmiau/PHPTeleBotWrt");
 $bot->cmd('/cmdlist', function () {
     $options = ['parse_mode' => 'html','reply' => true];
     return Bot::sendMessage("<code>

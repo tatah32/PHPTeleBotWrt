@@ -178,7 +178,7 @@ print_line() { # <String to Print>, [[<String to Print>] ...]
 }
 
 catatan() {
-	printf "Mod: XppaiWRT x PHPTeleBot"
+	printf "Mod: XppaiWRT x PHPTeleBotWrt"
 }
 
 print_machine() {

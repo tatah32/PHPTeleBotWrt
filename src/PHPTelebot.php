@@ -65,7 +65,7 @@ class PHPTelebot
     {
         // Check php version
         if (version_compare(phpversion(), '5.4', '<')) {
-            die("PHPTelebot needs to use PHP 5.4 or higher.\n");
+            die("PHPTeleBotWrt needs to use PHP 5.4 or higher.\n");
         }
 
         // Check curl
@@ -138,7 +138,7 @@ class PHPTelebot
                 if (isset($options['q']) || isset($options['quiet'])) {
                     self::$debug = false;
                 }
-                echo "Debug\t: ".(self::$debug ? 'ON' : 'OFF')."\nAlways keep your PHPTeleBot updated with `git pull`\n";
+                echo "Debug\t: ".(self::$debug ? 'ON' : 'OFF')."\nAlways keep your PHPTeleBotWrt updated with `git pull`\n";
                 $this->longPoll();
             } else {
                 $this->webhook();
