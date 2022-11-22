@@ -51,25 +51,31 @@
 ## Installation
 
 ### Install from Terminal
+1. Open Terminal/TTYD or apps like this.
 
-Make sure all requirements is installed on your OpenWRT:
+2. Run commands below to install requirements on your OpenWRT:
 
-```bash
+```sh
 opkg update
-opkg install git
-opkg install git-http
-opkg install php8-cli
-opkg install php8-mod-curl
-git clone https://github.com/helmiau/PHPTeleBotWrt &&  chmod +x PHPTeleBotWrt/src/plugins/*.sh
+opkg install git git-http php8-cli php8-mod-curl
+git clone https://github.com/helmiau/PHPTeleBotWrt && chmod +x PHPTeleBotWrt/src/plugins/*.sh
 ```
 
 >  Skip opkg update and opkg install if you using HelmiWrt OS 2022-10-22 builds or newer.
 
+3. Open your telegram account to get Telegram Bot API Token from [@BotFather](https://telegram.me/@BotFather)
+4. Copy your Telegram Bot API Token and Bot Username
+5. Run command below
+
+```sh
+cd PHPTeleBotWrt
+cat "5227493446:AAGN1BeLV0I_7KIAyq_4aE6BZfH_fXq9yGQ" > databot
+cat "botUsername" >> databot
+```
+
 ## Usage
-### Edit `databot` before running
-```
-Edit databot with your Bot Token & Bot Username (without @)
-```
+### About `databot' file inside PHPTeleBotWrt path
+This file contain your Telegram Bot API Token and Bot Username. You must update this file if you want to change to another bot.
 
 Start Screen
 ```sh
