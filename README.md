@@ -72,18 +72,33 @@ Edit databot with your Bot Token & Bot Username (without @)
 ```
 
 Start Screen
-```shell
+```sh
 screen -S bot
 ```
 
 Enter **PHPTeleBotWrt** Directory
-```shell
+```sh
 cd PHPTeleBotWrt
 ```
 
 Start bot
-```shell
+```sh
 php8-cli index.php
+```
+
+Start bot in background
+```sh
+php8-cli index.php &>/dev/null &
+```
+
+Check bot runner in background
+```sh
+jobs
+```
+
+Stop bot in background
+```sh
+kill job_id_from_check_bot_runner_command
 ```
 
 Auto Start Bot after reboot / internet off
