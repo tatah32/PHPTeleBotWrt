@@ -1,4 +1,4 @@
-# PHPTelebot
+# PHPTeleBotWrt
 - Telegram bot framework written in PHP for OpenWRT
 
 ## Features
