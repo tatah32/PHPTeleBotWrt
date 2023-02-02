@@ -29,7 +29,7 @@ $bot->cmd("/ping", function () {
 // start cmd & cmd list
 $bot->cmd(
     "/start",
-    "Welcome to PHPTeleBotWrt\n/cmdlist to see all comand\n Support : https://github.com/helmiau/PHPTeleBotWrt\n Donate : https://helmiau.com/pay"
+    "Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay"
 );
 $bot->cmd("/cmdlist", function () {
     $options = ["parse_mode" => "html", "reply" => true];
@@ -40,14 +40,17 @@ $bot->cmd("/cmdlist", function () {
  ↳/aria2stats    | Aria2 status
  ↳/aria2pause    | Pause all
  ↳/aria2resume   | Resume all
+ 
 📁OpenClash Command
  ↳/oc        | OC Information
  ↳/proxies   | Proxies status 
  ↳/rules     | Rule list 
  ↳upload yaml| Openclash yaml config upload
+
 📁MyXL Command 
  ↳/myxl      | Bandwidth usage 
  ↳/setxl 087 | Set default number
+
 📁System Information
  ↳/vnstat    | Bandwidth usage 
  ↳/vnstati   | Better Bandwidth usage 

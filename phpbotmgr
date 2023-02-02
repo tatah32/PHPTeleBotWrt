@@ -14,16 +14,18 @@ if [[ $1 == "i" ]]; then
 	echo -e "Updating package repositories for $TLNAME..." && opkg update
 	
 	# Try install git, git-http, bc is not installed
-	echo -e "Try to install git, git-http, bc..." 
-	if [[ $(opkg list-installed | grep -c "^git -\|^git-http -\|bc -") < 3 ]]; then
+	echo -e "Try to install git, git-http, bc, screen..." 
+	if [[ $(opkg list-installed | grep -c "^git -\|^git-http -\|bc -\|screen -") < 4 ]]; then
 		pkgname="git"
 		if [[ $(opkg list-installed | grep -c "^$pkgname -") == "0" ]]; then echo -e "Installing [$pkgname]..." && opkg install $pkgname ; fi
 		pkgname="git-http"
 		if [[ $(opkg list-installed | grep -c "^$pkgname -") == "0" ]]; then echo -e "Installing [$pkgname]..." && opkg install $pkgname ; fi
 		pkgname="bc"
 		if [[ $(opkg list-installed | grep -c "^$pkgname -") == "0" ]]; then echo -e "Installing [$pkgname]..." && opkg install $pkgname ; fi
+		pkgname="screen"
+		if [[ $(opkg list-installed | grep -c "^$pkgname -") == "0" ]]; then echo -e "Installing [$pkgname]..." && opkg install $pkgname ; fi
 	else
-		echo -e "Package: git, git-http, bc already installed." 
+		echo -e "Package: git, git-http, bc, screen already installed." 
 	fi
 	
 	# Try install PHP if php8/php7 is not installed
@@ -50,7 +52,7 @@ if [[ $1 == "i" ]]; then
 	fi
 	
 	# Rechecking all required packages
-	if [[ $(opkg list-installed | grep -c "^git -\|^git-http -\|bc -") == "3" ]] && [[ $(opkg list-installed | grep -c "^php8-cli -\|^php8-mod-curl -") == "2" || $(opkg list-installed | grep -c "^php7-cli -\|^php7-mod-curl -") == "2" ]]; then
+	if [[ $(opkg list-installed | grep -c "^git -\|^git-http -\|bc -\|screen -") == "4" ]] && [[ $(opkg list-installed | grep -c "^php8-cli -\|^php8-mod-curl -") == "2" || $(opkg list-installed | grep -c "^php7-cli -\|^php7-mod-curl -") == "2" ]]; then
 		echo "All/some required packages is not installed correctly or something wrong, exiting manager..."
 		exit 1
 	fi
@@ -126,23 +128,75 @@ elif [[ $1 == "ra" ]] || [[ $1 == "rx" ]]; then
 		echo -e "$TLNAME uninstalled..."
 	fi
 
+# Edit databot command
+elif [[ $1 == "e" ]]; then
+	# Edit databot CMD
+	echo -e "Editing $TLNAME databot..."
+	echo -n "💬 Enter Bot Token: "
+	read -r btoken
+	echo -n "🤖 Enter Bot Username (without @): "
+	read -r buser
+
+	echo -e "\n🔨 Setting up $TLNAME with new data..."
+	echo -e "$btoken" > "$INSDIR"/databot
+	echo -e "$buser" >> "$INSDIR"/databot
+
+	echo -e "✔️ $TLNAME telegram data was edited successfully."
+
 # Runner/starter command
 elif [[ $1 == "r" ]]; then
+	# Run screen
+	if [[ $(opkg list-installed | grep -c "^screen -") > 0 ]];then
+		echo -e "Starting screen..."
+		screen -S bot &>/dev/null &
+	else
+		echo -e "Pkg: screen is not available, exiting..."
+		exit 1
+	fi
+	
+	# Run php
 	if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "php8-cli") > 0 ]];then
 		echo -e "Starting $TLNAME with php8-cli."
-		nohup php8-cli "$INSDIR"/index.php &>/dev/null &
+		cd "$INSDIR" && nohup php8-cli index.php &>/dev/null &
 	else
 		echo -e "Starting $TLNAME with php7-cli."
-		nohup php7-cli "$INSDIR"/index.php &>/dev/null &
+		cd "$INSDIR" && nohup php7-cli index.php &>/dev/null &
 	fi
+	
 	echo -e "✔️ $TLNAME started successfully."
+	echo -e "Run [jobs] command to see $TLNAME process."
+
+# Check status command
+elif [[ $1 == "c" ]]; then
+	# https://linuxconfig.org/how-to-kill-a-running-process-on-linux
+	if [[ $(ps -a | grep "php7-cli\|php8-cli") > 0 ]]; then
+		echo -e "✔️ $TLNAME is running with detail:"
+		jobs -p
+		# ps -a | grep "php7-cli\|php8-cli"
+	else
+		echo -e "✔️ $TLNAME is not running."
+		exit 0
+	fi
 
 # Stopper command
 elif [[ $1 == "s" ]]; then
 	# Stop CMD
-	echo -e "✔️ $TLNAME stopped successfully."
+	
+	# https://unix.stackexchange.com/questions/383497/how-to-kill-all-jobs-in-bash/383542#383542
+	# pids=( $(jobs -p) )
+	# [ -n "$pids" ] && kill -- "${pids[@]/#/-}"
+	
+	# https://linuxconfig.org/how-to-kill-a-running-process-on-linux
+	if [[ $(ps -a | grep "php7-cli\|php8-cli") > 0 ]]; then
+		kill $(ps -a | grep "php7-cli\|php8-cli")
+		echo -e "✔️ $TLNAME stopped successfully."
+		exit 0
+	else
+		echo -e "✔️ $TLNAME is not running."
+		exit 0
+	fi
 
-# Auto start on boot command
+# Auto start on boot command (rc.local)
 elif [[ $1 == "a" ]]; then
 	if [[ -f "$INSDIR"/index.php ]] && ! grep -q "PHPTeleBotWrt" /etc/rc.local; then
 		sed -i 's#exit 0##g' /etc/rc.local
@@ -154,11 +208,27 @@ if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "php8-cli") > 0 ]];then cd "$PTBW
 
 exit 0
 EOF
-		echo -e "$TLNAME added to startup.."
+		echo -e "$TLNAME added to startup (rc.local).."
 	else
 		sed -i -e '/PHPTeleBotWrt-Start/,+4d' /etc/rc.local
-		echo -e "$TLNAME removed from startup.."
+		echo -e "$TLNAME removed from startup (rc.local).."
 	fi
+
+# Add bot to Scheduled Tasks (cron) command
+elif [[ $1 == "t" ]]; then
+	if [[ -f "$INSDIR"/index.php ]] && ! grep -q "PHPTeleBotWrt" /etc/crontabs/root; then
+		sed -i 's#exit 0##g' /etc/crontabs/root
+		cat << 'EOF' >> /etc/crontabs/root
+#PHPTeleBotWrt-Start
+*/5 * * * * cd /root/PHPTeleBotWrt && php8-cli index.php
+EOF
+		echo -e "$TLNAME added to Scheduled Tasks (cron).."
+	else
+		sed -i -e '/PHPTeleBotWrt-Start/,+1d' /etc/crontabs/root
+		echo -e "$TLNAME removed from Scheduled Tasks (cron).."
+	fi
+
+# Auto start on boot command
 else
 	echo -e "$TLNAME Requirements:"
 	echo -e " 1. Make your own bot from @BotFather."
@@ -170,7 +240,10 @@ else
 	echo -e " $SCRIPTNAME u  : Update $TLNAME."
 	echo -e " $SCRIPTNAME ra : Remove/Uninstall $TLNAME with all data."
 	echo -e " $SCRIPTNAME rx : Remove/Uninstall $TLNAME without data."
+	echo -e " $SCRIPTNAME e  : Edit $TLNAME databot config."
 	echo -e " $SCRIPTNAME r  : Run $TLNAME."
+	echo -e " $SCRIPTNAME c  : Check $TLNAME running status."
 	echo -e " $SCRIPTNAME s  : Stop $TLNAME."
-	echo -e " $SCRIPTNAME a  : Add/remove $TLNAME to Auto-startup."
+	echo -e " $SCRIPTNAME a  : Add/remove $TLNAME to/from Auto Startup (rc.local)."
+	echo -e " $SCRIPTNAME t  : Add/remove $TLNAME to/from Scheduled Tasks (cron)."
 fi

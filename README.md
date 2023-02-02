@@ -1,172 +1,242 @@
 # PHPTeleBotWrt
-- Telegram bot framework written in PHP for OpenWRT
+Telegram bot framework written in PHP for OpenWRT
 
 ## Features
-
+* Support PHP7 & PHP8 hybrid installation.
 * Support Long Polling and Webhook.
 * Proxy List (Openclash Proxies)
 * Rules List (Openclash Rules)
-* Openclash Information
+* Openclash Information, upload config yaml
 * Simple, easy to use.
-* Inline Command
-* Speedtest
-* Sysinfo
-* Memory
-* Vnstat
-* My IP
-* Aria2
-* MyXL
-
-# 📷 Screenshots
-##### Edit `databot` with your own Bot Token
-![bottoken](https://i.ibb.co/vP7csgQ/TokenBot.png)
-##### Starting Bot
-![Startingbot](https://i.ibb.co/mcYqq3S/startbot.png)
-##### /start | /cmdlist
-![Start cmdlist](https://i.ibb.co/y4wqFwb/cmdlist.png)
-##### /memory
-![Memory](https://i.ibb.co/cwQ8m1C/memory.png)
-##### /myip
-![Myip](https://i.ibb.co/PQVB3DH/myip.png)
-##### /myxl `number`
-![MyXL](https://i.ibb.co/bBMf0rg/myxl.png)
-##### /proxies
-![Proxies](https://i.ibb.co/0fmXhjX/proxies.png)
-##### /rules
-![Rules](https://i.ibb.co/8DtrH3n/rules.png)
-##### /speedtest `(depend on what speedtest installed)`
-![Speedtest](https://i.ibb.co/r3cV90Y/speedtest.png)
-##### /sysinfo
-![sysinfo](https://i.ibb.co/2tqS3cM/sysinfo.png)
-##### /vnstat `-d or -h or -m`
-![sysinfo](https://i.ibb.co/0ycJhvP/vnstat.png)
+* Inline Command - like vnstat -l, etc.
+* Speedtest - check internet speed of your OpenWrt.
+* Sysinfo - view system information of your OpenWrt.
+* Memory - check memory/RAM usage.
+* Vnstat - check vnstat internet usage.
+* Vnstati - check vnstati internet usage.
+* My IP - get your OpenWrt's IP information.
+* Aria2 - Control Aria2.
+* MyXL - Check XL AXIATA number information (packages, quota, expired, etc).
 
 ## Requirements
-- git
-- screen
-- php8-cli
-- php8-mod-curl
-- Telegram Bot API Token - Talk to [@BotFather](https://telegram.me/@BotFather)
+- Internet
+- `git` openwrt package.
+- `screen` openwrt package.
+- `php8-cli` openwrt package.
+- `php8-mod-curl` openwrt package .
+- Your own private telegram bot and bot username (see from bot profile)
+- Telegram Bot API Token - get from [@BotFather](https://t.me/BotFather)
 
 ## Installation
+1. Open Putty/Terminal/TTYD/XTERM or similar apps like these.
+2. Run commands below to download **`phpbotmgr - PHPTeleBotWrt Manager`** to your OpenWRT (choose one of installation method below):
 
-### Install from Terminal
-1. Open Terminal/TTYD or apps like this.
+	`wget` installation:
 
-2. Run commands below to install requirements on your OpenWRT:
+	```sh
+	wget https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/phpbotmgr -O /root/phpbotmgr && chmod +x /root/phpbotmgr
+	```
 
-```sh
-opkg update
-opkg install git git-http php8-cli php8-mod-curl
-git clone https://github.com/helmiau/PHPTeleBotWrt && chmod +x PHPTeleBotWrt/src/plugins/*.sh
-```
+	`curl` installation:
 
->  Skip opkg update and opkg install if you using HelmiWrt OS 2022-10-22 builds or newer.
+	```sh
+	curl -sL https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/phpbotmgr > /root/phpbotmgr && chmod +x /root/phpbotmgr
+	```
 
-3. Open your telegram account to get Telegram Bot API Token from [@BotFather](https://telegram.me/@BotFather)
-4. Copy your Telegram Bot API Token and Bot Username
-5. Run command below
+3. Run `phpbotmgr i` with Putty/Terminal/TTYD/XTERM to install **PHPTeleBotWrt**
 
-```sh
-cd PHPTeleBotWrt
-echo "813651681:asdiwAuib54_ASDE81_dwa5s1SV" > databot
-echo "botUsername" >> databot
-```
-Note:
-- Replace **`813651681:asdiwAuib54_ASDE81_dwa5s1SV`** with your **Telegram Bot API Token**
-- Replace **`botUsername`** with your **Telegram Bot Username**
+	```sh
+	phpbotmgr i
+	```
+
+4. Copy Telegram Bot API Token from [@BotFather](https://t.me/BotFather), paste to terminal when `💬 Enter Bot Token:` appeared.
+5. Copy your Telegram Bot Username from bot profile, paste to terminal when `🤖 Enter Bot Username (without @):` appeared.
+
+
+#### Follow Installation Tutorial from Youtube (php7)
+See some video tutorial below
+- [Install OpenWrt PHP Telegram Bot By XppaiWRT | PHP7 REYRE-STB](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
 
 ## Usage
-### About `databot' file inside PHPTeleBotWrt path
+Read usage information of `phpbotmgr` command.
+
+#### About `databot` file inside PHPTeleBotWrt path
 This file contain your Telegram Bot API Token and Bot Username. You must update this file if you want to change to another bot.
 
-Start Screen
+###### Sample contents of `databot` file
+
+<details>
+<summary>See screenshots</summary>
+<p><img src="https://i.ibb.co/vP7csgQ/TokenBot.png" alt="bottoken"></p>
+</details>
+
+Here some command previews:
+
+Install **PHPTeleBotWrt**
 ```sh
-screen -S bot
+phpbotmgr i
 ```
 
-Enter **PHPTeleBotWrt** Directory
+Update **PHPTeleBotWrt**
 ```sh
-cd PHPTeleBotWrt
+phpbotmgr u
 ```
 
-Start bot
+Edit **PHPTeleBotWrt** databot
 ```sh
-php8-cli index.php
+phpbotmgr e
+```
+	
+Run/Start **PHPTeleBotWrt**
+```sh
+phpbotmgr r
 ```
 
-Start bot in background
+> If not work, just run `cd PHPTeleBotWrt && nohup php8-cli index.php &>/dev/null & && cd` manually
+
+Check **PHPTeleBotWrt** running status
 ```sh
-php8-cli index.php &>/dev/null &
+phpbotmgr c
 ```
 
-Check bot runner in background
+Stop **PHPTeleBotWrt**
 ```sh
-jobs
+phpbotmgr s
 ```
-Then screen will show
+
+Full Remove/Uninstall **PHPTeleBotWrt** with all datas.
 ```sh
-root@HelmiWrt  on git:master x$~/PHPTeleBotWrt php8-cli index.php &>/dev/null &
-[1] 15530 <<------- THIS IS JOB ID
- ^-------- THIS IS JOB NUMBER
+phpbotmgr ra
+```
+
+Remove/Uninstall **PHPTeleBotWrt** without databot.
+```sh
+phpbotmgr rx
+```
+
+Add/remove **PHPTeleBotWrt** to Auto-startup **`LuCI - System - Startup - Local Startup - rc.local`**.
+```sh
+phpbotmgr a
+```
+
+Add/remove **PHPTeleBotWrt** to Auto-startup **`LuCI - System - Scheduled Tasks`**.
+```sh
+phpbotmgr t
+```
+
+#### Command lists
+```
+📁Aria2 Command
+ ↳/aria2add      | Add task
+ ↳/aria2stats    | Aria2 status
+ ↳/aria2pause    | Pause all
+ ↳/aria2resume   | Resume all
  
-root@HelmiWrt  on git:master x$~/PHPTeleBotWrt jobs
-[1]  + running    php8-cli index.php &> /dev/null
- ^-------- THIS IS JOB NUMBER
+📁OpenClash Command
+ ↳/oc        | OC Information
+ ↳/proxies   | Proxies status 
+ ↳/rules     | Rule list 
+ ↳upload yaml| Openclash yaml config upload
+
+📁MyXL Command
+ ↳/myxl      | Bandwidth usage 
+ ↳/setxl 087 | Set default number
+
+📁System Information
+ ↳/vnstat    | Bandwidth usage 
+ ↳/vnstati   | Better Bandwidth usage 
+ ↳/memory    | Memory status 
+ ↳/myip      | Get ip details 
+ ↳/speedtest | Speedtest 
+ ↳/ping      | Ping bot
+ ↳/sysinfo   | System Information
 ```
 
-Stop bot in background
-```sh
-kill job_id_from_check_bot_runner_command
-```
+## 📷 Screenshots
 
-or 
+###### Starting Bot
 
-```sh
-kill %job_number_from_check_bot_runner_command
-```
+<details>
+<summary>See screenshots</summary>
+<p><img src="https://i.ibb.co/mcYqq3S/startbot.png" alt="Startingbot"></p>
+<h5 id="-start-cmdlist">/start | /cmdlist</h5>
+</details>
 
-Auto Start on boot by putting these codes to **`LuCI - System - Startup - Local Startup`**
-```sh
-cd PHPTeleBotWrt && php8-cli index.php
-```
-Note: Paste above codes before **`exit`** command
+###### /start | /cmdlist
 
+<details>
+<summary>See screenshots</summary>
+<p><img src="https://i.ibb.co/y4wqFwb/cmdlist.png" alt="Start cmdlist"></p>
+</details>
 
-Add commands below to **`LuCI - System - Scheduled Tasks`** then save it there
-```sh
-*/5 * * * * cd PHPTeleBotWrt && php8-cli index.php
-```
+###### /memory
 
-### Follow Installation Tutorial from Youtube (php7)
-[Install OpenWrt PHP Telegram Bot By XppaiWRT | PHP7 REYRE-STB
-](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
+<details>
+<summary>See screenshots</summary>
+<h5 id="-memory">/memory</h5>
+<p><img src="https://i.ibb.co/cwQ8m1C/memory.png" alt="Memory"></p>
+</details>
 
-## Commands
-Commands list
- * /aria2add      | Add task
- * /aria2stats    | Aria2 status
- * /aria2pause    | Pause all
- * /aria2resume   | Resume all
- * /oc        | OC Information
- * /proxies   | Proxies status
- * /rules     | Rule list
- * /vnstat    | Bandwidth usage
- * /memory    | Memory status
- * /myip      | Get ip details
- * /myxl 087x | MyXL Info
- * /speedtest | Speedtest
- * /ping      | Ping bot
- * /sysinfo   | System Information
+###### /myip
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-myip">/myip</h5>
+<p><img src="https://i.ibb.co/PQVB3DH/myip.png" alt="Myip"></p>
+</details>
+
+###### /myxl `number`
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-myxl-number-">/myxl <code>number</code></h5>
+<p><img src="https://i.ibb.co/bBMf0rg/myxl.png" alt="MyXL"></p>
+</details>
+
+###### /proxies
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-proxies">/proxies</h5>
+<p><img src="https://i.ibb.co/0fmXhjX/proxies.png" alt="Proxies"></p>
+</details>
+
+###### /rules
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-rules">/rules</h5>
+<p><img src="https://i.ibb.co/8DtrH3n/rules.png" alt="Rules"></p>
+</details>
+
+###### /speedtest `(depend on what speedtest installed)`
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-speedtest-depend-on-what-speedtest-installed-">/speedtest <code>(depend on what speedtest installed)</code></h5>
+<p><img src="https://i.ibb.co/r3cV90Y/speedtest.png" alt="Speedtest"></p>
+</details>
+
+###### /sysinfo
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-sysinfo">/sysinfo</h5>
+<p><img src="https://i.ibb.co/2tqS3cM/sysinfo.png" alt="sysinfo"></p>
+</details>
+
+###### /vnstat or /vnstati `-d` or `-h` or `-m`
+
+<details>
+<summary>See screenshots</summary>
+<h5 id="-vnstat-d-or-h-or-m-">/vnstat <code>-d or -h or -m</code></h5>
+<p><img src="https://i.ibb.co/0ycJhvP/vnstat.png" alt="vnstat"></p>
+</details>
+
 
 ## Tested on
 * [**Reyre Firmware OC OnLy 28.09.22**](https://www.youtube.com/watch?v=vtjw38V2ybA) -> Speedtest bug
 * [**Reyre Firmware OC OnLy 27.10.22**](https://www.youtube.com/watch?v=0KWgy6P2PVYA) -> Speedtest Fixed | vnstat Bug
 * [**Reyre Firmware OC OnLy 06.11.22**](https://www.youtube.com/watch?v=SBHcJJC8ln0) -> Working Perfectly
-
-## How To Update PHPTeleBotWrt
-```sh
-git reset --hard
-git pull
-chmod +x src/plugins/*.sh
-```
+* [**HelmiWrt OS PHP7, Older OpenClash**](https://www.cararegistrasi.com/nMfJevPD5cn4) -> Working Perfectly
+* [**HelmiWrt OS PHP8, Latest OpenClash**](https://www.cararegistrasi.com/nMfJevPD5cn4) -> OC Info not work
