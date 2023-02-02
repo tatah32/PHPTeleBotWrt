@@ -154,7 +154,7 @@ phpbotmgr t
 
 ## 📷 Screenshots
 
-###### Starting Bot
+##### Starting Bot
 
 <details>
 <summary>See screenshots</summary>
@@ -162,14 +162,14 @@ phpbotmgr t
 <h5 id="-start-cmdlist">/start | /cmdlist</h5>
 </details>
 
-###### /start | /cmdlist
+##### /start | /cmdlist
 
 <details>
 <summary>See screenshots</summary>
 <p><img src="https://i.ibb.co/y4wqFwb/cmdlist.png" alt="Start cmdlist"></p>
 </details>
 
-###### /memory
+##### /memory
 
 <details>
 <summary>See screenshots</summary>
@@ -177,7 +177,7 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/cwQ8m1C/memory.png" alt="Memory"></p>
 </details>
 
-###### /myip
+##### /myip
 
 <details>
 <summary>See screenshots</summary>
@@ -185,7 +185,7 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/PQVB3DH/myip.png" alt="Myip"></p>
 </details>
 
-###### /myxl `number`
+##### /myxl `number`
 
 <details>
 <summary>See screenshots</summary>
@@ -193,7 +193,7 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/bBMf0rg/myxl.png" alt="MyXL"></p>
 </details>
 
-###### /proxies
+##### /proxies
 
 <details>
 <summary>See screenshots</summary>
@@ -201,7 +201,7 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/0fmXhjX/proxies.png" alt="Proxies"></p>
 </details>
 
-###### /rules
+##### /rules
 
 <details>
 <summary>See screenshots</summary>
@@ -209,7 +209,7 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/8DtrH3n/rules.png" alt="Rules"></p>
 </details>
 
-###### /speedtest `(depend on what speedtest installed)`
+##### /speedtest `(depend on what speedtest installed)`
 
 <details>
 <summary>See screenshots</summary>
@@ -217,7 +217,7 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/r3cV90Y/speedtest.png" alt="Speedtest"></p>
 </details>
 
-###### /sysinfo
+##### /sysinfo
 
 <details>
 <summary>See screenshots</summary>
@@ -225,14 +225,13 @@ phpbotmgr t
 <p><img src="https://i.ibb.co/2tqS3cM/sysinfo.png" alt="sysinfo"></p>
 </details>
 
-###### /vnstat or /vnstati `-d` or `-h` or `-m`
+##### /vnstat or /vnstati `-d` or `-h` or `-m`
 
 <details>
 <summary>See screenshots</summary>
 <h5 id="-vnstat-d-or-h-or-m-">/vnstat <code>-d or -h or -m</code></h5>
 <p><img src="https://i.ibb.co/0ycJhvP/vnstat.png" alt="vnstat"></p>
 </details>
-
 
 ## Tested on
 * [**Reyre Firmware OC OnLy 28.09.22**](https://www.youtube.com/watch?v=vtjw38V2ybA) -> Speedtest bug
