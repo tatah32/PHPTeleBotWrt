@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/src/PHPTelebot.php";
 require_once __DIR__ . "/src/xc.php";
+error_reporting(E_ALL); ini_set('display_errors', 1);
 
 // Read token & username
 function readToken($input)
