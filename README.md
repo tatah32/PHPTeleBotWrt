@@ -55,7 +55,8 @@ Telegram bot framework written in PHP for OpenWRT
 
 #### Follow Installation Tutorial from Youtube (php7)
 See some video tutorial below
-- [Install OpenWrt PHP Telegram Bot By XppaiWRT | PHP7 REYRE-STB](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
+
+* [Install OpenWrt PHP Telegram Bot By XppaiWRT - PHP7 REYRE-STB](https://www.youtube.com/watch?v=JJPozNreVE0&lc=Ugy_OosDmlWRERUgvB94AaABAg.9iCzkvv1lxu9iV-s6tpDnO)
 
 ## Usage
 Read usage information of `phpbotmgr` command.
@@ -63,10 +64,8 @@ Read usage information of `phpbotmgr` command.
 #### About `databot` file inside PHPTeleBotWrt path
 This file contain your Telegram Bot API Token and Bot Username. You must update this file if you want to change to another bot.
 
-###### Sample contents of `databot` file
-
 <details>
-<summary>See screenshots</summary>
+<summary>Sample contents of databot file (click to see screenshots)</summary>
 <p><img src="https://i.ibb.co/vP7csgQ/TokenBot.png" alt="bottoken"></p>
 </details>
 
@@ -154,88 +153,61 @@ phpbotmgr t
 
 ## 📷 Screenshots
 
-#### Starting Bot
-
 <details>
-<summary>See screenshots</summary>
+<summary><h5>start on terminal</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/mcYqq3S/startbot.png" alt="Startingbot"></p>
-<h5 id="-start-cmdlist">/start | /cmdlist</h5>
 </details>
 
-#### /start | /cmdlist
 
 <details>
-<summary>See screenshots</summary>
+<summary><h5>/start | /cmdlist</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/y4wqFwb/cmdlist.png" alt="Start cmdlist"></p>
 </details>
 
-#### /memory
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-memory">/memory</h5>
+<summary><h5>/memory</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/cwQ8m1C/memory.png" alt="Memory"></p>
 </details>
 
-#### /myip
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-myip">/myip</h5>
+<summary><h5>/myip</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/PQVB3DH/myip.png" alt="Myip"></p>
 </details>
 
-#### /myxl `number`
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-myxl-number-">/myxl <code>number</code></h5>
+<summary><h5>/myxl <code>number</code></h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/bBMf0rg/myxl.png" alt="MyXL"></p>
 </details>
 
-#### /proxies
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-proxies">/proxies</h5>
+<summary><h5>/proxies</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/0fmXhjX/proxies.png" alt="Proxies"></p>
 </details>
 
-#### /rules
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-rules">/rules</h5>
+<summary><h5>/rules</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/8DtrH3n/rules.png" alt="Rules"></p>
 </details>
 
-#### /speedtest `(depend on what speedtest installed)`
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-speedtest-depend-on-what-speedtest-installed-">/speedtest <code>(depend on what speedtest installed)</code></h5>
+<summary><h5>/speedtest <code>(depend on what speedtest installed)</code></h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/r3cV90Y/speedtest.png" alt="Speedtest"></p>
 </details>
 
-#### /sysinfo
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-sysinfo">/sysinfo</h5>
+<summary><h5>/sysinfo</h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/2tqS3cM/sysinfo.png" alt="sysinfo"></p>
 </details>
 
-#### /vnstat or /vnstati `-d` or `-h` or `-m`
-
 <details>
-<summary>See screenshots</summary>
-<h5 id="-vnstat-d-or-h-or-m-">/vnstat <code>-d or -h or -m</code></h5>
+<summary><h5>/vnstat or /vnstati <code>-d</code> or <code>-h</code> or <code>-m</code></h5> (click to see screenshot)</summary>
 <p><img src="https://i.ibb.co/0ycJhvP/vnstat.png" alt="vnstat"></p>
 </details>
 
+
 ## Tested on
 * [**Reyre Firmware OC OnLy 28.09.22**](https://www.youtube.com/watch?v=vtjw38V2ybA) -> Speedtest bug
-* [**Reyre Firmware OC OnLy 27.10.22**](https://www.youtube.com/watch?v=0KWgy6P2PVYA) -> Speedtest Fixed | vnstat Bug
+* [**Reyre Firmware OC OnLy 27.10.22**](https://www.youtube.com/watch?v=0KWgy6P2PVYA) -> Speedtest Fixed (vnstat Bug)
 * [**Reyre Firmware OC OnLy 06.11.22**](https://www.youtube.com/watch?v=SBHcJJC8ln0) -> Working Perfectly
 * [**HelmiWrt OS PHP7, Older OpenClash**](https://www.cararegistrasi.com/nMfJevPD5cn4) -> Working Perfectly
 * [**HelmiWrt OS PHP8, Latest OpenClash**](https://www.cararegistrasi.com/nMfJevPD5cn4) -> OC Info not work
