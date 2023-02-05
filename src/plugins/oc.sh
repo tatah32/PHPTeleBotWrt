@@ -14,6 +14,8 @@ cfg_yaml=$(ls /etc/openclash/config/ | grep -E '.yaml')
 banner=$(cat src/plugins/banner)
 printf "$banner
 =============
+OpenClash Informations
+=============
 OpenClash   : $op_version
 Core Tun    : $core_tun_version
 Core Meta   : $core_meta_version

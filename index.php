@@ -16,7 +16,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 function sendAd() {
     $options = ["parse_mode" => "html", "reply" => true];
     $ads = [
-        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>\nKeep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
+        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>\nKeep PHPTeleBotWrt up-to-date updated with [<strong>phpmgrbot u</strong>] commands</span>",
     ];
 
     // Select a random advertisement message
@@ -39,9 +39,7 @@ $bot->cmd("/ping", function () {
 // start bot
 $bot->cmd("/start", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    Bot::sendMessage("<code>
-Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay
-</code>", $options);
+    Bot::sendMessage("Welcome to PHPTeleBotWrt!\nRun /cmdlist to see all available comands.\n\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay", $options);
     return sendAd();
 });
 
@@ -52,29 +50,31 @@ $bot->cmd("/cmdlist", function () {
     Bot::sendMessage(
         "
 📁Aria2 Commands
- ↳/aria2add      | Add task
- ↳/aria2stats    | Aria2 status
- ↳/aria2pause    | Pause all
- ↳/aria2resume   | Resume all
+ ↳/aria2add : Add task
+ ↳/aria2stats : Aria2 status
+ ↳/aria2pause : Pause all
+ ↳/aria2resume : Resume all
  
 📁OpenClash Commands
- ↳/oc        | OC Information
- ↳/proxies   | Proxies status 
- ↳/rules     | Rule list 
- ↳upload yaml| Openclash yaml config upload
+ ↳/oc : OC Information
+ ↳/proxies : Proxies status 
+ ↳/rules : Rule list 
 
 📁MyXL Commands
- ↳/myxl      | Bandwidth usage 
- ↳/setxl 087 | Set default number
+ ↳/myxl : Bandwidth usage 
+ ↳/setxl 087 : Set default number
+
+📁File Uploader
+ ↳/upload : Upload file to OpenWrt
 
 📁System Information
- ↳/vnstat    | Bandwidth usage 
- ↳/vnstati   | Better Bandwidth usage 
- ↳/memory    | Memory status 
- ↳/myip      | Get ip details 
- ↳/speedtest | Speedtest 
- ↳/ping      | Ping bot
- ↳/sysinfo   | System Information",
+ ↳/vnstat : Bandwidth usage 
+ ↳/vnstati : Better Bandwidth usage 
+ ↳/memory : Memory status 
+ ↳/myip : Get ip details 
+ ↳/speedtest : Speedtest 
+ ↳/ping : Ping bot
+ ↳/sysinfo : System Information",
         $options);
     return sendAd();
 });
@@ -84,11 +84,19 @@ $bot->on('document', function() {
   // download file
     $token = readToken("token");
     $message = Bot::message();
+    $file_name = $message['document']['file_name'];
     $file_id = $message['document']['file_id'];
     $raw = json_decode(Bot::getFile($file_id),true);
     $file_path = $raw['result']['file_path'];
-    $wget = shell_exec("wget -P /etc/openclash/config https://api.telegram.org/file/bot$token/$file_path");
-    Bot::sendMessage("OpenClash config yaml \[$file_path\] uploaded to OpenWrt, please check it manually.");
+    $file_path_custom = $message['caption'];
+    if ($file_path_custom === null) {
+        $file_out_path = '/root';
+    } else {
+        $file_out_path = $file_path_custom;
+    }
+    $wget = shell_exec("wget -O \"$file_out_path/$file_name\" \"https://api.telegram.org/file/bot$token/$file_path\"");
+    $options = ["parse_mode" => "html", "reply" => true];
+    Bot::sendMessage("File <strong>$file_name</strong> uploaded to <strong>$file_out_path</strong> on OpenWrt, please check it manually.\n\nFile <strong>$file_name</strong> telah di unggah ke <strong>$file_out_path</strong> di OpenWrt, silahkan periksa file secara manual.", $options);
  });
 
 // OpenWRT Command
@@ -219,6 +227,13 @@ $bot->cmd("/myxl", function ($number) {
     sendAd();
 });
 //Myxl cmd end
+
+//upload cmd
+$bot->cmd("/upload", function () {
+    $options = ["parse_mode" => "html", "reply" => true];
+    Bot::sendMessage("Upload a file to a directory (default path: /root).\nAdd file caption to upload file in to customized directory.\nMultiple files upload is unsupported.\n\nUnggah berkas ke folder tertentu dalam OpenWrt (folder default: /root)\nTambahkan caption ketika upload file, agar file di unggah ke folder yang sudah ditentukan di caption.\nTidak mendukung upload banyak file.", $options);
+    sendAd();
+});
 
 //adb cmd
 $bot->cmd("/adb", function () {

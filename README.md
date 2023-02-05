@@ -6,15 +6,16 @@ Telegram bot framework written in PHP for OpenWRT
 * Support Long Polling and Webhook.
 * Proxy List (Openclash Proxies)
 * Rules List (Openclash Rules)
-* Openclash Information, upload config yaml
+* Openclash Information
+* Upload file to OpenWrt
 * Simple, easy to use.
 * Inline Command - like vnstat -l, etc.
-* Speedtest - check internet speed of your OpenWrt.
-* Sysinfo - view system information of your OpenWrt.
+* Speedtest - check OpenWrt's internet speed.
+* Sysinfo - view OpenWrt's system information.
 * Memory - check memory/RAM usage.
 * Vnstat - check vnstat internet usage.
 * Vnstati - check vnstati internet usage.
-* My IP - get your OpenWrt's IP information.
+* My IP - get OpenWrt's IP information.
 * Aria2 - Control Aria2.
 * MyXL - Check XL AXIATA number information (packages, quota, expired, etc).
 
@@ -134,12 +135,14 @@ phpbotmgr t
 📁OpenClash Command
  ↳/oc        | OC Information
  ↳/proxies   | Proxies status 
- ↳/rules     | Rule list 
- ↳upload yaml| Openclash yaml config upload
+ ↳/rules     | Rule list
 
 📁MyXL Command
  ↳/myxl      | Bandwidth usage 
  ↳/setxl 087 | Set default number
+
+📁File Uploader
+ ↳/upload    | Upload single file to OpenWrt
 
 📁System Information
  ↳/vnstat    | Bandwidth usage 
