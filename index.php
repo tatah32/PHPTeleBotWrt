@@ -19,9 +19,10 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 // random messages
 $ads = [
 		"<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>.</span>",
-		"<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date with <u><strong>phpmgrbot u</strong></u> command in Terminal.</span>",
-		"<span class='tg-spoiler'>Read PHPTeleBotWrt wiki and information <a href='https://helmiau.com/pay'>here</a>.</span>",
-		"<span class='tg-spoiler'>PHPTeleBotWrt devs: <a href='https://helmiau.com/pay'>Helmi Amirudin</a>, .</span>",
+		"<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date with <u><strong>phpmgrbot u</strong></u> command in Terminal or through /update in telegram bot chat.</span>",
+		"<span class='tg-spoiler'>Read PHPTeleBotWrt wiki and information <a href='https://www.helmiau.com/blog/phptelebotwrt'>here</a>.</span>",
+		"<span class='tg-spoiler'>PHPTeleBotWrt devs: <a href='https://github.com/radyakaze/phptelebot'>radyakaze</a>, <a href='https://github.com/OppaiCyber/XppaiWRT'>OppaiCyber-XppaiWRT</a>, <a href='https://github.com/xentolopx/eXppaiWRT'>xentolopx-eXppaiWRT</a> and <a href='https://helmiau.com/pay'>Helmi Amirudin</a>.</span>",
+		"<span class='tg-spoiler'>Make sure your device always connected to network.</span>",
     ];
 $randAds = $ads[array_rand($ads)];
 
