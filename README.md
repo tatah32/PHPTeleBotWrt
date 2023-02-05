@@ -6,8 +6,9 @@ Telegram bot framework written in PHP for OpenWRT
 * Support Long Polling and Webhook.
 * Proxy List (Openclash Proxies)
 * Rules List (Openclash Rules)
-* Openclash Information
-* Upload file to OpenWrt
+* Openclash Information.
+* Upload file to OpenWrt.
+* Update binaries from telegram
 * Simple, easy to use.
 * Inline Command - like vnstat -l, etc.
 * Speedtest - check OpenWrt's internet speed.
