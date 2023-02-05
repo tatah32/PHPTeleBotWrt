@@ -63,8 +63,11 @@ $bot->cmd("/cmdlist", function () {
  
 📁OpenClash Commands
  ↳/oc : OC Information
- ↳/proxies : Proxies status 
- ↳/rules : Rule list 
+ ↳/ocst : Start/Restart Openclash
+ ↳/ocsp : Stop Openclash
+ ↳/ocpr : Proxies status 
+ ↳/ocrl : Rule list 
+ ↳/ocup : Update Openclash version
 
 📁MyXL Commands
  ↳/myxl : Bandwidth usage 
@@ -110,12 +113,60 @@ $bot->on('document', function() {
 
 // OpenWRT Command
 // OpenClash Proxies
-$bot->cmd("/proxies", function () {
+$bot->cmd("/ocpr", function () {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
 		"<code>" . Proxies() . "</code>"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
+});
+
+// OpenClash Start
+$bot->cmd("/ocst", function () {
+	Bot::sendMessage(
+		"Start/Restarting Openclash ... "
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"<code>" . shell_exec("uci set openclash.config.enable=1 && uci commit openclash && /etc/init.d/openclash restart >/dev/null 2>&1 &") . "</code>"
+		. "Openclash started successfully!."
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// OpenClash Start
+$bot->cmd("/ocsp", function () {
+	Bot::sendMessage(
+		"Stopping Openclash ... "
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"<code>" . shell_exec("uci set openclash.config.enable=0 && uci commit openclash && /etc/init.d/openclash stop >/dev/null 2>&1 &") . "</code>"
+		. "Openclash stopped successfully!."
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// OpenClash Update
+$bot->cmd("/ocup", function () {
+    $ocver = shell_exec("echo -e $(opkg status luci-app-openclash 2>/dev/null |grep 'Version' | awk -F 'Version: ' '{print$2}')");
+	Bot::sendMessage(
+		"Checking Openclash version update ... "
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		"<code>" . shell_exec("/usr/share/openclash/openclash_update.sh") . "</code>"
+        ,$GLOBALS["options"]);
+    $ocver2 = shell_exec("echo -e $(opkg status luci-app-openclash 2>/dev/null |grep 'Version' | awk -F 'Version: ' '{print$2}')");
+	if ($ocver2 === $ocver) {
+		$ocupinfo = "Openclash is already at latest version";
+	} else {
+		$ocupinfo = "Openclash updated to $ocver2";
+	}
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"$ocupinfo"
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
 });
 
 // vnstat
@@ -212,7 +263,7 @@ $bot->cmd("/myip", function () {
 });
 
 // OpenClash Rules
-$bot->cmd("/rules", function () {
+$bot->cmd("/ocrl", function () {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
 		"<code>" . Rules() . "</code>"

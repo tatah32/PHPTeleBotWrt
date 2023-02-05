@@ -138,8 +138,11 @@ phpbotmgr t
  
 📁OpenClash Command
  ↳/oc          | OC Information
- ↳/proxies     | Proxies status 
- ↳/rules       | Rule list
+ ↳/ocst        | Start/Restart Openclash
+ ↳/ocsp        | Stop Openclash
+ ↳/ocpr        | Proxies status 
+ ↳/ocrl        | Rule list
+ ↳/ocup        | Update Openclash version
 
 📁MyXL Command
  ↳/myxl        | Bandwidth usage 
