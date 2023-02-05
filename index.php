@@ -53,29 +53,29 @@ $bot->cmd("/cmdlist", function () {
     Bot::sendMessage(
         "
 📁Aria2 Commands
- ↳/aria2add      | Add task
- ↳/aria2stats    | Aria2 status
- ↳/aria2pause    | Pause all
- ↳/aria2resume   | Resume all
+ ↳/aria2add<code>      | Add task</code>
+ ↳/aria2stats<code>    | Aria2 status</code>
+ ↳/aria2pause<code>    | Pause all</code>
+ ↳/aria2resume<code>   | Resume all</code>
  
 📁OpenClash Commands
- ↳/oc        | OC Information
- ↳/proxies   | Proxies status 
- ↳/rules     | Rule list 
- ↳upload yaml| Openclash yaml config upload
+ ↳/oc<code>        | OC Information</code>
+ ↳/proxies<code>   | Proxies status </code>
+ ↳/rules<code>     | Rule list </code>
+ ↳upload yaml<code>| Openclash yaml config upload</code>
 
 📁MyXL Commands
- ↳/myxl      | Bandwidth usage 
- ↳/setxl 087 | Set default number
+ ↳/myxl<code>      | Bandwidth usage </code>
+ ↳/setxl 087<code> | Set default number</code>
 
 📁System Information
- ↳/vnstat    | Bandwidth usage 
- ↳/vnstati   | Better Bandwidth usage 
- ↳/memory    | Memory status 
- ↳/myip      | Get ip details 
- ↳/speedtest | Speedtest 
- ↳/ping      | Ping bot
- ↳/sysinfo   | System Information",
+ ↳/vnstat<code>    | Bandwidth usage </code>
+ ↳/vnstati<code>   | Better Bandwidth usage </code>
+ ↳/memory<code>    | Memory status </code>
+ ↳/myip<code>      | Get ip details </code>
+ ↳/speedtest<code> | Speedtest </code>
+ ↳/ping<code>      | Ping bot</code>
+ ↳/sysinfo<code>   | System Information</code>",
         $options);
     return sendAd();
 });
