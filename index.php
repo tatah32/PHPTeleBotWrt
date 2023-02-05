@@ -13,6 +13,19 @@ function readToken($input)
 
 $bot = new PHPTelebot(readToken("token"), readToken("username"));
 
+function sendAd() {
+    $options = ["parse_mode" => "html", "reply" => true];
+    $ads = [
+        "<span class='tg-spoiler'>Donate me: https://helmiau.com/pay</span>",
+        "<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date updated with 'git pull'</span>",
+    ];
+
+    // Select a random advertisement message
+    $selectedAd = $ads[array_rand($ads)];
+
+    Bot::sendMessage($selectedAd, $options);
+}
+
 // Ping Command
 $bot->cmd("/ping", function () {
     $options = ["parse_mode" => "html", "reply" => true];
@@ -20,20 +33,24 @@ $bot->cmd("/ping", function () {
     Bot::sendMessage("<code>pong</code>", $options);
     $end_time = microtime(true);
     $diff = round(($end_time - $start_time) * 1000);
-    return Bot::sendMessage(
-        "<code>Time taken: " . $diff . "ms</code>",
-        $options
-    );
+    Bot::sendMessage("<code>Time taken: " . $diff . "ms</code>", $options);
+    return sendAd();
 });
 
-// start cmd & cmd list
-$bot->cmd(
-    "/start",
-    "Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay"
-);
+// start bot
+$bot->cmd("/start", function () {
+    $options = ["parse_mode" => "html", "reply" => true];
+    Bot::sendMessage("<code>
+Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay
+</code>", $options);
+    return sendAd();
+});
+
+
+// list of commands
 $bot->cmd("/cmdlist", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>
 📁Aria2 Command
  ↳/aria2add      | Add task
@@ -59,8 +76,8 @@ $bot->cmd("/cmdlist", function () {
  ↳/speedtest | Speedtest 
  ↳/ping      | Ping bot
  ↳/sysinfo   | System Information</code>",
-        $options
-    );
+        $options);
+    return sendAd();
 });
 
 // yaml config upload
@@ -76,12 +93,27 @@ $bot->on('document', function() {
  });
 
 // OpenWRT Command
+// OpenClash Proxies
 $bot->cmd("/proxies", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage("<code>" . Proxies() . "</code>", $options);
+    Bot::sendMessage("<code>" . Proxies() . "</code>", $options);
+    sendAd();
 });
 
-// cmd vnstati
+// vnstat
+$bot->cmd("/vnstat", function ($input) {
+    $options = ["parse_mode" => "html", "reply" => true];
+    $input = escapeshellarg($input);
+    $output = shell_exec("vnstat $input 2>&1");
+    if ($output === null) {
+        Bot::sendMessage("<code> Invalid input or vnstat not found</code>", $options);
+    } else {
+        Bot::sendMessage("<code>" . $output . "</code>", $options);
+    }
+    sendAd();
+});
+
+// vnstati
 $bot->cmd("/vnstati", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     $image_files = [
@@ -102,22 +134,11 @@ $bot->cmd("/vnstati", function () {
     }
     
     shell_exec("rm *.png");
+    sendAd();
 });
 
-$bot->cmd("/vnstat", function ($input) {
-    $options = ["parse_mode" => "html", "reply" => true];
-    $input = escapeshellarg($input);
-    $output = shell_exec("vnstat $input 2>&1");
-    if ($output === null) {
-        return Bot::sendMessage(
-            "<code> Invalid input or vnstat not found</code>",
-            $options
-        );
-    } else {
-        return Bot::sendMessage("<code>" . $output . "</code>", $options);
-    }
-});
 
+// Check RAM/Memory
 $bot->cmd("/memory", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     $meminfo = file("/proc/meminfo");
@@ -131,39 +152,48 @@ $bot->cmd("/memory", function () {
         "<code>Memory usage: \nBar: " .
         $bar .
         "\nUsed: $used MB \nAvailable: $free MB \nTotal: $total MB \nUsage: $percent%</code>";
-    return Bot::sendMessage($output, $options);
+    Bot::sendMessage($output, $options);
+    sendAd();
 });
 
+// Systemm info
 $bot->cmd("/sysinfo", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>" . shell_exec("src/plugins/sysinfo.sh -bw") . "</code>",
-        $options
-    );
+        $options);
+    sendAd();
 });
 
+// OpenClash
 $bot->cmd("/oc", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>" . shell_exec("src/plugins/oc.sh") . "</code>",
-        $options
-    );
+        $options);
+    sendAd();
 });
 
+// My IP Address info
 $bot->cmd("/myip", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage("<code>" . myip() . "</code>", $options);
+    Bot::sendMessage("<code>" . myip() . "</code>", $options);
+    sendAd();
 });
 
+// OpenClash Rules
 $bot->cmd("/rules", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage("<code>" . Rules() . "</code>", $options);
+    Bot::sendMessage("<code>" . Rules() . "</code>", $options);
+    sendAd();
 });
 
+// Speedtest
 $bot->cmd("/speedtest", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage("<code>Speedtest on Progress</code>", $options);
-    return Bot::sendMessage("<code>" . Speedtest() . "</code>", $options);
+    Bot::sendMessage("<code>" . Speedtest() . "</code>", $options);
+    sendAd();
 });
 
 //Myxl cmd
@@ -186,7 +216,8 @@ $bot->cmd("/setxl", function ($number) {
 $bot->cmd("/myxl", function ($number) {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage("<code>MyXL on Progress</code>", $options);
-    return Bot::sendMessage("<code>" . MyXL($number) . "</code>", $options);
+    Bot::sendMessage("<code>" . MyXL($number) . "</code>", $options);
+    sendAd();
 });
 //Myxl cmd end
 
@@ -194,41 +225,47 @@ $bot->cmd("/myxl", function ($number) {
 $bot->cmd("/adb", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage("<code>ADB on Progress</code>", $options);
-    return Bot::sendMessage("<code>" . ADB() . "</code>", $options);
+    Bot::sendMessage("<code>" . ADB() . "</code>", $options);
+    sendAd();
 });
 
 //Aria2 cmd
 $bot->cmd("/aria2add", function ($url) {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>" . shell_exec("src/plugins/add.sh $url") . "</code>",
         $options
     );
+    sendAd();
 });
 
 $bot->cmd("/aria2stats", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>" . shell_exec("src/plugins/stats.sh") . "</code>",
         $options
     );
+    sendAd();
 });
 
 $bot->cmd("/aria2pause", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>" . shell_exec("src/plugins/pause.sh") . "</code>",
         $options
     );
+    sendAd();
 });
 
 $bot->cmd("/aria2resume", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    return Bot::sendMessage(
+    Bot::sendMessage(
         "<code>" . shell_exec("src/plugins/resume.sh") . "</code>",
         $options
     );
+    sendAd();
 });
+
 //Aria2 cmd end
 
 //inline command
