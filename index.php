@@ -16,8 +16,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 function sendAd() {
     $options = ["parse_mode" => "html", "reply" => true];
     $ads = [
-        "<span class='tg-spoiler'>Donate me: https://helmiau.com/pay</span>",
-        "<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date updated with 'git pull'</span>",
+        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a><br>Keep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
     ];
 
     // Select a random advertisement message
@@ -40,9 +39,9 @@ $bot->cmd("/ping", function () {
 // start bot
 $bot->cmd("/start", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    Bot::sendMessage("<code>
-Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay
-</code>", $options);
+    Bot::sendMessage("<span>
+Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt <br> Donate: https://helmiau.com/pay
+</span>", $options);
     return sendAd();
 });
 
@@ -51,7 +50,7 @@ Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: 
 $bot->cmd("/cmdlist", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage(
-        "<code>
+        "<p>
 📁Aria2 Command
  ↳/aria2add      | Add task
  ↳/aria2stats    | Aria2 status
@@ -75,7 +74,7 @@ $bot->cmd("/cmdlist", function () {
  ↳/myip      | Get ip details 
  ↳/speedtest | Speedtest 
  ↳/ping      | Ping bot
- ↳/sysinfo   | System Information</code>",
+ ↳/sysinfo   | System Information</p>",
         $options);
     return sendAd();
 });
