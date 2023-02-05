@@ -158,7 +158,6 @@ phpbotmgr t
 ```
 
 ## 📷 Screenshots
-https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-cmdlist.png
 
 <details>
 <summary><h5>start on terminal</h5> (click to see screenshot)</summary>
