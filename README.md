@@ -126,32 +126,35 @@ phpbotmgr t
 
 #### Command lists
 ```
+📁Bot Manager
+ ↳/update       | Update PHPTeleBotWrt binaries
+ 
 📁Aria2 Command
- ↳/aria2add      | Add task
- ↳/aria2stats    | Aria2 status
- ↳/aria2pause    | Pause all
- ↳/aria2resume   | Resume all
+ ↳/aria2add     | Add task
+ ↳/aria2stats   | Aria2 status
+ ↳/aria2pause   | Pause all
+ ↳/aria2resume  | Resume all
  
 📁OpenClash Command
- ↳/oc        | OC Information
- ↳/proxies   | Proxies status 
- ↳/rules     | Rule list
+ ↳/oc          | OC Information
+ ↳/proxies     | Proxies status 
+ ↳/rules       | Rule list
 
 📁MyXL Command
- ↳/myxl      | Bandwidth usage 
- ↳/setxl 087 | Set default number
+ ↳/myxl        | Bandwidth usage 
+ ↳/setxl 087   | Set default number
 
 📁File Uploader
- ↳/upload    | Upload single file to OpenWrt
+ ↳/upload      | Upload single file to OpenWrt
 
 📁System Information
- ↳/vnstat    | Bandwidth usage 
- ↳/vnstati   | Better Bandwidth usage 
- ↳/memory    | Memory status 
- ↳/myip      | Get ip details 
- ↳/speedtest | Speedtest 
- ↳/ping      | Ping bot
- ↳/sysinfo   | System Information
+ ↳/vnstat      | Bandwidth usage 
+ ↳/vnstati     | Better Bandwidth usage 
+ ↳/memory      | Memory status 
+ ↳/myip        | Get ip details 
+ ↳/speedtest   | Speedtest 
+ ↳/ping        | Ping bot
+ ↳/sysinfo     | System Information
 ```
 
 ## 📷 Screenshots
