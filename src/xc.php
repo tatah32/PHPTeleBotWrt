@@ -1,6 +1,10 @@
 <?php
 error_reporting(E_ALL); ini_set('display_errors', 1);
 
+$oc_ip = shell_exec('uci get network.lan.ipaddr'); // '192.168.1.1';
+$oc_port = shell_exec('uci get openclash.config.cn_port'); // '9090';
+$oc_secret = shell_exec('uci get openclash.config.dashboard_password'); // '1111';
+
 function seeURL($url){
     $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -112,11 +116,11 @@ curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
 $headers = array();
 $headers[] = 'Accept: */*';
 $headers[] = 'Accept-Language: en-US,en;q=0.9';
-$headers[] = 'Authorization: Bearer reyre';
+$headers[] = 'Authorization: Bearer '. $GLOBALS["oc_secret"] .'';
 $headers[] = 'Connection: keep-alive';
 $headers[] = 'Content-Type: application/json';
 $headers[] = 'Cookie: filemanager=ee057d392316be9bec05f297f2037536';
-$headers[] = 'Referer: http://192.168.1.1:9090/ui/yacd/?hostname=192.168.1.1&port=9090&secret=reyre';
+$headers[] = 'Referer: http://'. $GLOBALS["oc_ip"] .':'. $GLOBALS["oc_port"] .'/ui/yacd/?hostname='. $GLOBALS["oc_ip"] .'&port='. $GLOBALS["oc_port"] .'&secret='. $GLOBALS["oc_secret"] .'';
 $headers[] = 'Sec-Gpc: 1';
 $headers[] = 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36';
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -155,11 +159,11 @@ curl_setopt($ch, CURLOPT_ENCODING, 'gzip, deflate');
 $headers = array();
 $headers[] = 'Accept: */*';
 $headers[] = 'Accept-Language: en-US,en;q=0.9';
-$headers[] = 'Authorization: Bearer reyre';
+$headers[] = 'Authorization: Bearer '. $GLOBALS["oc_secret"] .'';
 $headers[] = 'Connection: keep-alive';
 $headers[] = 'Content-Type: application/json';
 $headers[] = 'Cookie: filemanager=ee057d392316be9bec05f297f2037536';
-$headers[] = 'Referer: http://192.168.1.1:9090/ui/yacd/?hostname=192.168.1.1&port=9090&secret=reyre';
+$headers[] = 'Referer: http://'. $GLOBALS["oc_ip"] .':'. $GLOBALS["oc_port"] .'/ui/yacd/?hostname='. $GLOBALS["oc_ip"] .'&port='. $GLOBALS["oc_port"] .'&secret='. $GLOBALS["oc_secret"] .'';
 $headers[] = 'Sec-Gpc: 1';
 $headers[] = 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36';
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
