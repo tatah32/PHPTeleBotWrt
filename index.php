@@ -17,6 +17,7 @@ function sendAd() {
     $options = ["parse_mode" => "html", "reply" => true];
     $ads = [
         "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a><br>Keep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
+        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a><br>Keep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
     ];
 
     // Select a random advertisement message
@@ -39,9 +40,9 @@ $bot->cmd("/ping", function () {
 // start bot
 $bot->cmd("/start", function () {
     $options = ["parse_mode" => "html", "reply" => true];
-    Bot::sendMessage("<span>
-Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt <br> Donate: https://helmiau.com/pay
-</span>", $options);
+    Bot::sendMessage("<code>
+Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay
+</code>", $options);
     return sendAd();
 });
 
@@ -50,20 +51,20 @@ Welcome to PHPTeleBotWrt\nRun [/cmdlist] to see all available comands\n Source: 
 $bot->cmd("/cmdlist", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage(
-        "<p>
-📁Aria2 Command
+        "
+📁Aria2 Commands
  ↳/aria2add      | Add task
  ↳/aria2stats    | Aria2 status
  ↳/aria2pause    | Pause all
  ↳/aria2resume   | Resume all
  
-📁OpenClash Command
+📁OpenClash Commands
  ↳/oc        | OC Information
  ↳/proxies   | Proxies status 
  ↳/rules     | Rule list 
  ↳upload yaml| Openclash yaml config upload
 
-📁MyXL Command 
+📁MyXL Commands
  ↳/myxl      | Bandwidth usage 
  ↳/setxl 087 | Set default number
 
@@ -74,7 +75,7 @@ $bot->cmd("/cmdlist", function () {
  ↳/myip      | Get ip details 
  ↳/speedtest | Speedtest 
  ↳/ping      | Ping bot
- ↳/sysinfo   | System Information</p>",
+ ↳/sysinfo   | System Information",
         $options);
     return sendAd();
 });
