@@ -230,13 +230,13 @@ $bot->cmd("/speedtest", function () {
 $bot->cmd("/setxl", function ($number) {
     if ($number == "") {
         Bot::sendMessage(
-            "<code>Masukan nomor yang mau di set sebagai default /setxl 087x</code>",
+            "Masukan nomor yang mau di set sebagai default /setxl 087x",
             $GLOBALS["options"]
         );
     } else {
         shell_exec("echo '$number' > xl");
         Bot::sendMessage(
-            "<code>Nomer $number disetting sebagai default\nSilahkan gunakan cmd /myxl tanpa memasukkan nomor</code>",
+            "Nomer $number disetting sebagai default\nSilahkan gunakan cmd /myxl tanpa memasukkan nomor",
             $GLOBALS["options"]
         );
     }
@@ -247,7 +247,7 @@ $bot->cmd("/myxl", function ($number) {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
 		"<code>" . MyXL($number) . "</code>"
-		. $GLOBALS["randAds"]
+		. "\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
 });
 //Myxl cmd end
