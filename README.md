@@ -158,56 +158,83 @@ phpbotmgr t
 ```
 
 ## 📷 Screenshots
+https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-cmdlist.png
 
 <details>
 <summary><h5>start on terminal</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/mcYqq3S/startbot.png" alt="Startingbot"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-start.png" alt="Startingbot"></p>
 </details>
 
 
 <details>
 <summary><h5>/start | /cmdlist</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/y4wqFwb/cmdlist.png" alt="Start cmdlist"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-cmdlist.png" alt="Start cmdlist"></p>
 </details>
 
 <details>
 <summary><h5>/memory</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/cwQ8m1C/memory.png" alt="Memory"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-memory.png" alt="Memory"></p>
 </details>
 
 <details>
 <summary><h5>/myip</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/PQVB3DH/myip.png" alt="Myip"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-myip.png" alt="Myip"></p>
 </details>
 
 <details>
 <summary><h5>/myxl <code>number</code></h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/bBMf0rg/myxl.png" alt="MyXL"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-myxl.png" alt="MyXL"></p>
+</details>
+
+<details>
+<summary><h5>/ping</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ping.png" alt="Proxies"></p>
 </details>
 
 <details>
 <summary><h5>/proxies</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/0fmXhjX/proxies.png" alt="Proxies"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-proxies.png" alt="Proxies"></p>
 </details>
 
 <details>
 <summary><h5>/rules</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/8DtrH3n/rules.png" alt="Rules"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-rules.png" alt="Rules"></p>
 </details>
 
 <details>
 <summary><h5>/speedtest <code>(depend on what speedtest installed)</code></h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/r3cV90Y/speedtest.png" alt="Speedtest"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-speedtest.png" alt="Speedtest"></p>
 </details>
 
 <details>
 <summary><h5>/sysinfo</h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/2tqS3cM/sysinfo.png" alt="sysinfo"></p>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-sysinfo.png" alt="sysinfo"></p>
 </details>
 
 <details>
-<summary><h5>/vnstat or /vnstati <code>-d</code> or <code>-h</code> or <code>-m</code></h5> (click to see screenshot)</summary>
-<p><img src="https://i.ibb.co/0ycJhvP/vnstat.png" alt="vnstat"></p>
+<summary><h5>/vnstat <code>-d</code> or <code>-h</code> or <code>-m</code></h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-vnstat.png" alt="vnstat"></p>
+</details>
+
+<details>
+<summary><h5>/vnstati <code>-d</code> or <code>-h</code> or <code>-m</code></h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-vnstati1.png" alt="vnstati1"></p>
+<br>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-vnstati2.png" alt="vnstati2"></p>
+</details>
+
+<details>
+<summary><h5>/upload</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-upload1.png" alt="upload1"></p>
+<br>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-upload2.png" alt="upload2"></p>
+<br>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-upload3.png" alt="upload3"></p>
+</details>
+
+<details>
+<summary><h5>/update</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-update.png" alt="vnstati1"></p>
 </details>
 
 
