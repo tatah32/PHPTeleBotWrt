@@ -143,6 +143,7 @@ phpbotmgr t
  ↳/ocpr        | Proxies status 
  ↳/ocrl        | Rule list
  ↳/ocup        | Update Openclash version
+ ↳/ocua        | Update Openclash and all cores
 
 📁MyXL Command
  ↳/myxl        | Bandwidth usage 
@@ -200,13 +201,33 @@ phpbotmgr t
 </details>
 
 <details>
-<summary><h5>/proxies</h5> (click to see screenshot)</summary>
+<summary><h5>/ocpr</h5> (click to see screenshot)</summary>
 <p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ocproxies.png" alt="OCProxies"></p>
 </details>
 
 <details>
-<summary><h5>/rules</h5> (click to see screenshot)</summary>
+<summary><h5>/ocrl</h5> (click to see screenshot)</summary>
 <p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ocrules.png" alt="OCRules"></p>
+</details>
+
+<details>
+<summary><h5>/ocst</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ocstart.png" alt="OCStart"></p>
+</details>
+
+<details>
+<summary><h5>/ocsp</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ocstop.png" alt="OCStop"></p>
+</details>
+
+<details>
+<summary><h5>/ocup</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ocupdate-ipk.png" alt="OCUpIPK"></p>
+</details>
+
+<details>
+<summary><h5>/ocua</h5> (click to see screenshot)</summary>
+<p><img src="https://raw.githubusercontent.com/helmiau/PHPTeleBotWrt/master/pics/phpbotwrt-ocupdate-all.png" alt="OCUpALL"></p>
 </details>
 
 <details>

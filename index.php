@@ -67,7 +67,8 @@ $bot->cmd("/cmdlist", function () {
  ↳/ocsp : Stop Openclash
  ↳/ocpr : Proxies status 
  ↳/ocrl : Rule list 
- ↳/ocup : Update Openclash version
+ ↳/ocup : Update Openclash app only
+ ↳/ocua : Update Openclash and all cores
 
 📁MyXL Commands
  ↳/myxl : Bandwidth usage 
@@ -134,7 +135,7 @@ $bot->cmd("/ocst", function () {
         ,$GLOBALS["options"]);
 });
 
-// OpenClash Start
+// OpenClash Stop
 $bot->cmd("/ocsp", function () {
 	Bot::sendMessage(
 		"Stopping Openclash ... "
@@ -165,6 +166,55 @@ $bot->cmd("/ocup", function () {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
 		"$ocupinfo"
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// OpenClash Update All core
+$bot->cmd("/ocua", function () {
+	$oc_app_old = shell_exec("echo -e $(opkg status luci-app-openclash 2>/dev/null |grep 'Version' | awk -F 'Version: ' '{print$2}')");
+	$core_old = shell_exec("echo -e $(/etc/openclash/core/clash -v 2>/dev/null |awk -F ' ' '{print $2}' 2>/dev/null)");
+	$core_tun_old = shell_exec("echo -e $(/etc/openclash/core/clash_tun -v 2>/dev/null |awk -F ' ' '{print $2}' 2>/dev/null)");
+	$core_meta_old = shell_exec("echo -e $(/etc/openclash/core/clash_meta -v 2>/dev/null |awk -F ' ' '{print $3}' 2>/dev/null)");
+	
+	Bot::sendMessage(
+		"Checking Openclash and cores version update ... "
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		"<code>" . shell_exec("sh /usr/share/openclash/openclash_update.sh 'one_key_update' >/dev/null 2>&1 &") . "</code>"
+        ,$GLOBALS["options"]);
+
+	$oc_app_new = shell_exec("echo -e $(opkg status luci-app-openclash 2>/dev/null |grep 'Version' | awk -F 'Version: ' '{print$2}')");
+	$core_new = shell_exec("echo -e $(/etc/openclash/core/clash -v 2>/dev/null |awk -F ' ' '{print $2}' 2>/dev/null)");
+	$core_tun_new = shell_exec("echo -e $(/etc/openclash/core/clash_tun -v 2>/dev/null |awk -F ' ' '{print $2}' 2>/dev/null)");
+	$core_meta_new = shell_exec("echo -e $(/etc/openclash/core/clash_meta -v 2>/dev/null |awk -F ' ' '{print $3}' 2>/dev/null)");
+
+	if ($oc_app_new === $oc_app_old) {
+		$oc_app_info = "Openclash App is already at latest version";
+	} else {
+		$oc_app_info = "Openclash updated to $oc_app_new";
+	}
+	if ($core_new === $core_old) {
+		$core_new_info = "Dev core is already at latest version";
+	} else {
+		$core_new_info = "Dev core updated to $core_new";
+	}
+	if ($core_tun_new === $core_tun_old) {
+		$core_tun_info = "TUN core is already at latest version";
+	} else {
+		$core_tun_info = "TUN core updated to $core_tun_new";
+	}
+	if ($core_meta_new === $core_meta_old) {
+		$core_meta_info = "Meta core is already at latest version";
+	} else {
+		$core_meta_info = "Meta core updated to $core_meta_new";
+	}
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"$oc_app_info" . "\n" .
+		"$core_new_info" . "\n" .
+		"$core_tun_info" . "\n" .
+		"$core_meta_info"
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
 });
