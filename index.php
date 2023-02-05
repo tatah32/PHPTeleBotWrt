@@ -16,7 +16,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 function sendAd() {
     $options = ["parse_mode" => "html", "reply" => true];
     $ads = [
-        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>\nKeep PHPTeleBotWrt up-to-date updated with [<strong>phpmgrbot u</strong>] commands</span>",
+        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>\nKeep PHPTeleBotWrt up-to-date with <u><strong>phpmgrbot u</strong></u> command in Terminal.</span>",
     ];
 
     // Select a random advertisement message
