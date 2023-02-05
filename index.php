@@ -315,7 +315,7 @@ $bot->cmd("/update", function () {
 		"Updating PHPTeleBotWrt..."
         ,$GLOBALS["options"]);
     Bot::sendMessage(
-		"<code>" . shell_exec("phpbotmgr u") . "</code>"
+		"<code>" . shell_exec("chmod 0755 phpbotmgr && ./phpbotmgr u") . "</code>"
         ,$GLOBALS["options"]);
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
