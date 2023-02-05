@@ -16,8 +16,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 function sendAd() {
     $options = ["parse_mode" => "html", "reply" => true];
     $ads = [
-        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a><br>Keep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
-        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a><br>Keep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
+        "<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>\nKeep PHPTeleBotWrt up-to-date updated with <code>phpmgrbot</code> commands</span>",
     ];
 
     // Select a random advertisement message
@@ -169,7 +168,7 @@ $bot->cmd("/sysinfo", function () {
 $bot->cmd("/oc", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage(
-        "<code>" . shell_exec("src/plugins/oc.sh") . "</code>",
+        "<code>" . shell_exec("echo -e \"$(src/plugins/oc.sh)\"") . "</code>",
         $options);
     sendAd();
 });
