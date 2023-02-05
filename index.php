@@ -51,7 +51,10 @@ $bot->cmd("/start", function () {
 $bot->cmd("/cmdlist", function () {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
-"📁Aria2 Commands
+"📁Bot Manager
+ ↳/update : Update PHPTeleBotWrt binaries
+ 
+ 📁Aria2 Commands
  ↳/aria2add : Add task
  ↳/aria2stats : Aria2 status
  ↳/aria2pause : Pause all
@@ -305,6 +308,21 @@ $bot->cmd("/aria2resume", function () {
 });
 
 //Aria2 cmd end
+
+// phpbotmgr
+$bot->cmd("/update", function () {
+    Bot::sendMessage(
+		"Updating PHPTeleBotWrt..."
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		"<code>" . shell_exec("phpbotmgr u") . "</code>"
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"PHPTeleBotWrt updated..."
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
 
 //inline command
 $bot->on("inline", function ($cmd, $input) {
