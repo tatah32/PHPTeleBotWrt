@@ -168,7 +168,7 @@ $bot->cmd("/sysinfo", function () {
 $bot->cmd("/oc", function () {
     $options = ["parse_mode" => "html", "reply" => true];
     Bot::sendMessage(
-        "<code>" . shell_exec("echo -e \"$(src/plugins/oc.sh)\"") . "</code>",
+        "<code>" . shell_exec("src/plugins/oc.sh") . "</code>",
         $options);
     sendAd();
 });
