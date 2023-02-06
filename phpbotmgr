@@ -238,9 +238,9 @@ else
 	
     if grep -q "PHPTeleBotWrt" /etc/crontabs/root; then
         $cron_stat = "ACTIVATED";
-    } else {
+    else
         $cron_stat = "NOT ACTIVE";
-    }
+    fi
 	echo -e "$TLNAME Requirements:"
 	echo -e " 1. Make your own bot from @BotFather."
 	echo -e " 2. Copy your telegram bot token from @BotFather."
