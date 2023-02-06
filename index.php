@@ -50,10 +50,24 @@ $bot->cmd("/start", function () {
 
 // list of commands
 $bot->cmd("/cmdlist", function () {
-    Bot::sendMessage(
+    $check_cron_stat = shell_exec("grep -c 'PHPTeleBotWrt' '/etc/crontabs/root'");
+    if ($check_cron_stat === 0) {
+        $cron_stat = "NOT ACTIVE";
+    } else {
+        $cron_stat = "ACTIVE";
+    }
+    $check_boot_stat = shell_exec("grep -c 'PHPTeleBotWrt' '/etc/rc.local'");
+    if ($check_boot_stat === 0) {
+        $boot_stat = "NOT ACTIVE";
+    } else {
+        $boot_stat = "ACTIVE";
+    }
+	Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
-"📁Bot Manager
- ↳/update : Update PHPTeleBotWrt binaries
+"📁PHPTeleBotWrt Manager
+ ↳/botup : Update bot binaries
+ ↳/botas : Add/remove bot to/from auto start on boot [$boot_stat]
+ ↳/botcr : Add/remove bot to/from cron job [$cron_stat]
  
  📁Aria2 Commands
  ↳/aria2add : Add task
@@ -77,14 +91,21 @@ $bot->cmd("/cmdlist", function () {
 📁File Uploader
  ↳/upload : Upload file to OpenWrt
 
-📁System Information
+📁System
+ ↳/memory : Memory status 
+ ↳/sysinfo : System Information
+ ↳/reboot : Reboot OpenWrt
+ ↳/turnoff : Turn off OpenWrt
+ 
+📁Network Information
+ ↳/netcl : Lists of connected client devices
+ ↳/fwlist : Firewall lists
+ ↳/ifcfg interface : List of device interface 
  ↳/vnstat : Bandwidth usage 
  ↳/vnstati : Better Bandwidth usage 
- ↳/memory : Memory status 
  ↳/myip : Get ip details 
  ↳/speedtest : Speedtest 
- ↳/ping : Ping bot
- ↳/sysinfo : System Information"
+ ↳/ping : Ping bot"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
 });
@@ -294,6 +315,61 @@ $bot->cmd("/sysinfo", function () {
         ,$GLOBALS["options"]);
 });
 
+// Reboot openwrt
+$bot->cmd("/reboot", function () {
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+        "Rebooting Openwrt..." .
+        "<code>" . shell_exec("reboot") . "</code>"
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// Turn off openwrt
+$bot->cmd("/turnoff", function () {
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+        "Turning off Openwrt..." .
+        "<code>" . shell_exec("halt && reboot -p") . "</code>"
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// Network clients info
+$bot->cmd("/netcl", function () {
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+        shell_exec("src/plugins/netcl.sh")
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// Firewall rule lists
+$bot->cmd("/fwlist", function () {
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+        "<code>" . shell_exec("src/plugins/fwlist.sh") . "</code>"
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// Ifconfig
+$bot->cmd("/ifcfg", function ($iface) {
+    if ($iface === null) {
+        $ex_ifcfg = shell_exec("ifconfig");
+        $pesan_ifcfg = "Viewing all of interfaces";
+    } else {
+        $ex_ifcfg = shell_exec("ifconfig $iface");
+        $pesan_ifcfg = "Viewing info of $iface interface";
+    }
+	
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+        "<code>$pesan_ifcfg\n\n$ex_ifcfg</code>"
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
 // OpenClash
 $bot->cmd("/oc", function () {
     Bot::sendMessage(
@@ -411,8 +487,8 @@ $bot->cmd("/aria2resume", function () {
 
 //Aria2 cmd end
 
-// phpbotmgr
-$bot->cmd("/update", function () {
+// phpbotmgr update
+$bot->cmd("/botup", function () {
     Bot::sendMessage(
 		"Updating PHPTeleBotWrt..."
         ,$GLOBALS["options"]);
@@ -422,6 +498,54 @@ $bot->cmd("/update", function () {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
 		"PHPTeleBotWrt updated..."
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// phpbotmgr auto start
+$bot->cmd("/botas", function () {
+    $check_boot_stat = shell_exec("grep -c 'PHPTeleBotWrt' '/etc/rc.local'");
+    if ($check_boot_stat === 0) {
+        $boot_stat1 = "Activating";
+        $boot_stat2 = "activated";
+    } else {
+        $boot_stat1 = "Deactivating";
+        $boot_stat2 = "deactivated";
+    }
+	
+    Bot::sendMessage(
+		"$boot_stat1 PHPTeleBotWrt to/from auto start..."
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		"<code>" . shell_exec("chmod 0755 phpbotmgr && ./phpbotmgr a") . "</code>"
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"PHPTeleBotWrt auto start $boot_stat2..."
+		. "\n\n" . $GLOBALS["randAds"]
+        ,$GLOBALS["options"]);
+});
+
+// phpbotmgr cron
+$bot->cmd("/botcr", function () {
+    $check_cron_stat = shell_exec("grep -c 'PHPTeleBotWrt' '/etc/crontabs/root'");
+    if ($check_cron_stat === 0) {
+        $cron_stat1 = "Activating";
+        $cron_stat2 = "activated";
+    } else {
+        $cron_stat1 = "Deactivating";
+        $cron_stat2 = "deactivated";
+    }
+	
+    Bot::sendMessage(
+		"$cron_stat1 PHPTeleBotWrt to/from cronjob scheduled task..."
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		"<code>" . shell_exec("chmod 0755 phpbotmgr && ./phpbotmgr t") . "</code>"
+        ,$GLOBALS["options"]);
+    Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"PHPTeleBotWrt cronjob scheduled task $boot_stat2..."
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
 });

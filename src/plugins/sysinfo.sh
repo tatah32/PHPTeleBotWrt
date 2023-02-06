@@ -196,12 +196,13 @@ catatan() {
 print_machine() {
 	local Machine=""
 	local HostName=$(uci -q get system.@system[0].hostname)
+	local KernelInfo=$(uname -a)
 	if [ -e /tmp/sysinfo/model ]; then
 		Machine=$(cat /tmp/sysinfo/model 2>/dev/null)
 	elif [ -e /proc/cpuinfo ]; then
 		Machine=$(awk 'BEGIN{FS="[ \t]+:[ \t]";OFS=""}/machine/{Machine=$2}/Hardware/{Hardware=$2}END{print Machine,(Machine!="" && Hardware!="")?" ":"",Hardware}' /proc/cpuinfo 2>/dev/null)
 	fi
-	print_line "Hostname: $HostName\nMachine: $Machine"
+	print_line "Hostname: $HostName\nMachine: $Machine\nKernel: $KernelInfo"
 }
 
 print_times() {
@@ -468,11 +469,13 @@ suhu_xc
 print_loadavg
 print_disk
 print_memory
+echo -e "\n\n"
 print_swap
 print_wan
 print_lan
 print_wlan
 print_vpn
+echo -e "\n\n"
 catatan
 
 finalize
