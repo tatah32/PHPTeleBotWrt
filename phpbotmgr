@@ -230,6 +230,17 @@ EOF
 
 # Auto start on boot command
 else
+    if grep -q "PHPTeleBotWrt" /etc/rc.local; then
+        $boot_stat = "ACTIVATED";
+    else
+        $boot_stat = "NOT ACTIVE";
+    fi
+	
+    if grep -q "PHPTeleBotWrt" /etc/crontabs/root; then
+        $cron_stat = "ACTIVATED";
+    } else {
+        $cron_stat = "NOT ACTIVE";
+    }
 	echo -e "$TLNAME Requirements:"
 	echo -e " 1. Make your own bot from @BotFather."
 	echo -e " 2. Copy your telegram bot token from @BotFather."
@@ -244,6 +255,6 @@ else
 	echo -e " $SCRIPTNAME r  : Run $TLNAME."
 	echo -e " $SCRIPTNAME c  : Check $TLNAME running status."
 	echo -e " $SCRIPTNAME s  : Stop $TLNAME."
-	echo -e " $SCRIPTNAME a  : Add/remove $TLNAME to/from Auto Startup (rc.local)."
-	echo -e " $SCRIPTNAME t  : Add/remove $TLNAME to/from Scheduled Tasks (cron)."
+	echo -e " $SCRIPTNAME a  : Auto Startup $TLNAME (rc.local) [$boot_stat]."
+	echo -e " $SCRIPTNAME t  : $TLNAME Scheduled Tasks (cron) [$cron_stat]."
 fi
