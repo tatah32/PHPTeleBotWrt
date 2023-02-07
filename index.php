@@ -134,12 +134,13 @@ $bot->on('document', function() {
 $bot->cmd("/upf", function ($filedir) {
     $token = readToken("token");
     $message = Bot::message();
+	$filePath = $filedir;
 	$fileInfo = $message['reply_to_message']['document'];
     $fileName = $fileInfo['file_name'];
     $fileId = $fileInfo['file_id'];
     $raw = json_decode(Bot::getFile($fileId),true);
     $file_server_path = $raw['result']['file_path'];
-	if ($filedir === !null && is_dir($filedir)) {
+	if (!is_null($filePath) && is_dir($filedir) && isset($fileName) && isset($file_server_path)) {
 		$wget = shell_exec("wget -O \"$filedir/$fileName\" \"https://api.telegram.org/file/bot$token/$file_server_path\"");
 		$pesan_upf = "File <code>$fileName</code> uploaded to <code>$filedir</code> successfully!." . "\n\n" .
 		"File <code>$fileName</code> berhasil diunggah ke folder <code>$filedir</code>!.";
