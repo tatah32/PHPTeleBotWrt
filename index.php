@@ -145,8 +145,8 @@ $bot->cmd("/upf", function ($filedir) {
 		$pesan_upf = "File <code>$fileName</code> uploaded to <code>$filedir</code> successfully!." . "\n\n" .
 		"File <code>$fileName</code> berhasil diunggah ke folder <code>$filedir</code>!.";
 	} else {
-		$pesan_upf = "Directory<code> $filedir</code> is invalid!." . "\n" .
-		"Folder<code> $filedir</code> tidak valid!." . "\n\n" .
+		$pesan_upf = "Directory<code>$filedir</code> is invalid!." . "\n" .
+		"Folder<code>$filedir</code> tidak valid!." . "\n\n" .
 		"Upload a file to a directory on OpenWrt.\n- Only support single file upload.\n- Reply uploaded file with command <code>/upf /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder." . "\n\n" .
 		"Unggah berkas ke folder tertentu di OpenWrt\n- Hanya mendukung upload satu file saja.\n- Balas file yang sudah di unggah dengan perintah <code>/upf /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> ke folder tujuan anda.";
 	}
