@@ -13,7 +13,7 @@ if [[ $1 == "i" ]]; then
 	# Check package and install requirements
 	echo -e "Updating package repositories for $TLNAME..." && opkg update
 	
-	# Try install git, git-http, bc is not installed
+	# Try install git, git-http, bc, screen is not installed
 	echo -e "Try to install git, git-http, bc, screen..." 
 	if [[ $(opkg list-installed | grep -c "^git -\|^git-http -\|bc -\|screen -") < 4 ]]; then
 		pkgname="git"

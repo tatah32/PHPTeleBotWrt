@@ -19,10 +19,11 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 // random messages
 $ads = [
 		"<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>.</span>",
-		"<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date with <u><strong>phpmgrbot u</strong></u> command in Terminal or through /update in telegram bot chat.</span>",
+		"<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date with <code>phpmgrbot u</code> command in Terminal or through /botup command in telegram bot chat.</span>",
 		"<span class='tg-spoiler'>Read PHPTeleBotWrt wiki and information <a href='https://www.helmiau.com/blog/phptelebotwrt'>here</a>.</span>",
 		"<span class='tg-spoiler'>PHPTeleBotWrt devs: <a href='https://github.com/radyakaze/phptelebot'>radyakaze</a>, <a href='https://github.com/OppaiCyber/XppaiWRT'>OppaiCyber-XppaiWRT</a>, <a href='https://github.com/xentolopx/eXppaiWRT'>xentolopx-eXppaiWRT</a> and <a href='https://helmiau.com/pay'>Helmi Amirudin</a>.</span>",
 		"<span class='tg-spoiler'>Make sure your device always connected to network.</span>",
+        "<span class='tg-spoiler'>Support eXppaiWRT to by sending fund to BCA : 0131630831 | DANA / OVO : 087837872813 | Dimas Syahrul Hidayat</span>",
     ];
 $randAds = $ads[array_rand($ads)];
 
@@ -88,12 +89,19 @@ $bot->cmd("/cmdlist", function () {
  ↳/myxl : Bandwidth usage 
  ↳/setxl 087 : Set default number
 
-📁File Uploader
- ↳/upload : Upload file to OpenWrt
+📁File Manager
+ ↳/upf : Upload a file to OpenWrt
+ ↳/dlf : Get/retrieve a file from OpenWrt
+ ↳/cp : Copy a file to another folder
+ ↳/mv : Move a file to another folder
+ ↳/rm : Delete a file
 
 📁System
- ↳/memory : Memory status 
  ↳/sysinfo : System Information
+ ↳/memory : Memory status 
+ ↳/sh commandSample : Run custom command in bash terminal
+ 
+📁Power System
  ↳/reboot : Reboot OpenWrt
  ↳/turnoff : Turn off OpenWrt
  
@@ -108,30 +116,145 @@ $bot->cmd("/cmdlist", function () {
  ↳/ping : Ping bot"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
+	unset($boot_stat);
+	unset($cron_stat);
 });
 
-// yaml config upload
+// when file uploaded
 $bot->on('document', function() {
-  // download file
-    $token = readToken("token");
     $message = Bot::message();
-    $file_name = $message['document']['file_name'];
-    $file_id = $message['document']['file_id'];
-    $raw = json_decode(Bot::getFile($file_id),true);
-    $file_path = $raw['result']['file_path'];
-    $file_path_custom = $message['caption'];
-    if ($file_path_custom === null) {
-        $file_out_path = '/root';
-    } else {
-        $file_out_path = $file_path_custom;
-    }
-    $wget = shell_exec("wget -O \"$file_out_path/$file_name\" \"https://api.telegram.org/file/bot$token/$file_path\"");
+	$fileName = $message['document']['file_name'];
     Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
-		"File <strong>$file_name</strong> uploaded to <strong>$file_out_path</strong> on OpenWrt, please check it manually.\n\nFile <strong>$file_name</strong> telah di unggah ke <strong>$file_out_path</strong> di OpenWrt, silahkan periksa file secara manual."
-		. "\n\n" . $GLOBALS["randAds"]
+		"File <code>$fileName</code> uploaded to Telegram server. Reply uploaded file with command <code>/upf /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder.". "\n\n" .
+		"File <code>$fileName</code> telah diunggah ke server Telegram. Balas file yang sudah di unggah dengan perintah <code>/upf /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> dengan folder tujuan anda."
 		,$GLOBALS["options"]);
  });
+
+//upload cmd
+$bot->cmd("/upf", function ($filedir) {
+    $token = readToken("token");
+    $message = Bot::message();
+	$fileInfo = $message['reply_to_message']['document'];
+    $fileName = $fileInfo['file_name'];
+    $fileId = $fileInfo['file_id'];
+    $raw = json_decode(Bot::getFile($fileId),true);
+    $file_server_path = $raw['result']['file_path'];
+	if ($filedir === !null && is_dir($filedir)) {
+		$wget = shell_exec("wget -O \"$filedir/$fileName\" \"https://api.telegram.org/file/bot$token/$file_server_path\"");
+		$pesan_upf = "File <code>$fileName</code> uploaded to <code>$filedir</code> successfully!." . "\n\n" .
+		"File <code>$fileName</code> berhasil diunggah ke folder <code>$filedir</code>!.";
+	} else {
+		$pesan_upf = "Directory<code> $filedir</code> is invalid!." . "\n" .
+		"Folder<code> $filedir</code> tidak valid!." . "\n\n" .
+		"Upload a file to a directory on OpenWrt.\n- Only support single file upload.\n- Reply uploaded file with command <code>/upf /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder." . "\n\n" .
+		"Unggah berkas ke folder tertentu di OpenWrt\n- Hanya mendukung upload satu file saja.\n- Balas file yang sudah di unggah dengan perintah <code>/upf /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> ke folder tujuan anda.";
+	}
+	
+	Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"$pesan_upf"
+		. "\n\n" . $GLOBALS["randAds"]
+		,$GLOBALS["options"]);
+});
+
+//download/retrieve file from openwrt cmd
+// curl -F document=@\"/filepath/filename\" \"https://api.telegram.org/bot5227493446:AAGN1BeLV0I_7KIAyq_4aE6BZfH_fXq9yGQ/sendDocument?chat_id=236082523\"
+$bot->cmd("/dlf", function ($filedir) {
+    $token = readToken("token");
+    $message = Bot::message();
+    $chat_dest = $message['from']['id'];
+	if (file_exists($filedir)) {
+		$curled = shell_exec("curl -F document=@\"$filedir\" \"https://api.telegram.org/bot$token/sendDocument?chat_id=$chat_dest\"");
+		Bot::sendMessage(
+			$GLOBALS["banner"] . "\n" .
+			"File <code>$filedir</code> retrieved successfully!.\n\nFile <code>$filedir</code> telah diterima."
+			. "\n\n" . $GLOBALS["randAds"]
+			,$GLOBALS["options"]);
+	} else {
+		Bot::sendMessage(
+		"Please input correct command. Example: <code>/dlf /folder1/filename.ext</code>.\n Or file doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/dlf /folder1/filename.ext</code>\n Atau mungkin file tidak ada di server."
+		,$GLOBALS["options"]);
+	}
+});
+
+//copy file cmd
+$bot->cmd("/cp", function ($cpold, $cpnew) {
+    if (file_exists($cpold) && file_exists($cpnew)) {
+		$copied = shell_exec("cp \"$cpold\" \"$cpnew\"");
+		Bot::sendMessage(
+			$GLOBALS["banner"] . "\n" .
+			"File <code>$cpold</code> copied to <code>$cpnew</code>!.\nFile <code>$cpold</code> telah dipindah ke <code>$cpnew</code>!."
+			. "\n\n" . $GLOBALS["randAds"]
+			,$GLOBALS["options"]);
+    } else {
+		Bot::sendMessage(
+		"Please input correct command. Example: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
+		,$GLOBALS["options"]);
+    }
+});
+
+//move file cmd
+$bot->cmd("/mv", function ($mvold, $mvnew) {
+    if (file_exists($mvold) && file_exists($mvnew)) {
+		$copied = shell_exec("cp \"$mvold\" \"$mvnew\" && rm -f \"$mvold\"");
+		Bot::sendMessage(
+			$GLOBALS["banner"] . "\n" .
+			"File <code>$mvold</code> moved to <code>$mvnew</code>!.\nFile <code>$mvold</code> telah dipindah ke <code>$mvnew</code>!."
+			. "\n\n" . $GLOBALS["randAds"]
+			,$GLOBALS["options"]);
+    } else {
+		Bot::sendMessage(
+		"Please input correct command. Example: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
+		,$GLOBALS["options"]);
+    }
+});
+
+//delete file cmd
+$bot->cmd("/rm", function ($rmfile) {
+    if (file_exists($rmfile)) {
+		$copied = shell_exec("rm -f \"$rmfile\"");
+		Bot::sendMessage(
+			$GLOBALS["banner"] . "\n" .
+			"File <code>$rmfile</code> deleted!.\nFile <code>$rmfile</code> telah dihapus!."
+			. "\n\n" . $GLOBALS["randAds"]
+			,$GLOBALS["options"]);
+    } else {
+		Bot::sendMessage(
+		"Please input correct command. Example: <code>/rm /folder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/rm /folder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
+		,$GLOBALS["options"]);
+    }
+});
+
+//delete file cmd
+$bot->cmd("/rm", function ($rmfile) {
+    if (file_exists($rmfile)) {
+		$copied = shell_exec("rm -f \"$rmfile\"");
+		Bot::sendMessage(
+			$GLOBALS["banner"] . "\n" .
+			"File <code>$rmfile</code> deleted!.\nFile <code>$rmfile</code> telah dihapus!."
+			. "\n\n" . $GLOBALS["randAds"]
+			,$GLOBALS["options"]);
+    } else {
+		Bot::sendMessage(
+		"Please input correct command. Example: <code>/rm /folder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/rm /folder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
+		,$GLOBALS["options"]);
+    }
+});
+
+//bash cmd custom command terminal
+$bot->cmd("/sh", function ($bashXmd) {
+	$runsh = shell_exec("$bashXmd > runshPHPBot && cat runshPHPBot");
+	// return $runsh;
+	
+	Bot::sendMessage(
+		$GLOBALS["banner"] . "\n" .
+		"<code>" . $runsh ."</code>"
+		. "\n\n" . $GLOBALS["randAds"]
+		,$GLOBALS["options"]);
+
+	$rmrunsh = shell_exec("rm runshPHPBot");
+});
+
 
 // OpenWRT Command
 // OpenClash Proxies
@@ -399,7 +522,7 @@ $bot->cmd("/ocrl", function () {
 
 // Speedtest
 $bot->cmd("/speedtest", function () {
-    Bot::sendMessage("<code>Speedtest on Progress</code>", $GLOBALS["options"]);
+    Bot::sendMessage("Speedtest on Progress... Please wait..", $GLOBALS["options"]);
     Bot::sendMessage(
 		$GLOBALS["banner"] .
 		"<code>" . Speedtest() . "</code>"
@@ -432,15 +555,6 @@ $bot->cmd("/myxl", function ($number) {
         ,$GLOBALS["options"]);
 });
 //Myxl cmd end
-
-//upload cmd
-$bot->cmd("/upload", function () {
-    Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
-		"Upload a file to a directory (default path: /root).\nAdd file caption to upload file in to customized directory.\nMultiple files upload is unsupported.\n\nUnggah berkas ke folder tertentu dalam OpenWrt (folder default: /root)\nTambahkan caption ketika upload file, agar file di unggah ke folder yang sudah ditentukan di caption.\nTidak mendukung upload banyak file."
-		. "\n\n" . $GLOBALS["randAds"]
-        ,$GLOBALS["options"]);
-});
 
 //adb cmd
 $bot->cmd("/adb", function () {
@@ -524,6 +638,9 @@ $bot->cmd("/botas", function () {
 		"PHPTeleBotWrt auto start $boot_stat2..."
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
+		
+	unset($boot_stat1);
+	unset($boot_stat2);
 });
 
 // phpbotmgr cron
@@ -545,9 +662,12 @@ $bot->cmd("/botcr", function () {
         ,$GLOBALS["options"]);
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
-		"PHPTeleBotWrt cronjob scheduled task $boot_stat2..."
+		"PHPTeleBotWrt cronjob scheduled task $cron_stat2..."
 		. "\n\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
+
+	unset($cron_stat1);
+	unset($cron_stat2);
 });
 
 //inline command
