@@ -244,7 +244,9 @@ $bot->cmd("/rm", function ($rmfile) {
 
 //bash cmd custom command terminal
 $bot->cmd("/sh", function ($bashXmd) {
-	$runsh = shell_exec("$bashXmd > runshPHPBot && cat runshPHPBot");
+	$tzX = "sht.sh";
+	$crtFlX = shell_exec("echo \"$bashXmd\" > $tzX && chmod 0755 $tzX");
+	$runsh = shell_exec("./$tzX > rpbXz && cat rpbXz");
 	// return $runsh;
 	
 	Bot::sendMessage(
@@ -253,7 +255,7 @@ $bot->cmd("/sh", function ($bashXmd) {
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
 
-	$rmrunsh = shell_exec("rm runshPHPBot");
+	$rmrunsh = shell_exec("rm rpbXz && rm $tzX");
 });
 
 
@@ -529,6 +531,7 @@ $bot->cmd("/speedtest", function () {
 		"<code>" . Speedtest() . "</code>"
 		. "\n" . $GLOBALS["randAds"]
         ,$GLOBALS["options"]);
+	$rmstrXq = shell_exec("rm result_SpeedTST");
 });
 
 //Myxl cmd

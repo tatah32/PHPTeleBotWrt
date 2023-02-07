@@ -204,7 +204,7 @@ function myip(){
 
 function Speedtest(){
 
-$result = shell_exec('speedtest > result && cat result');
+$result = shell_exec('speedtest > result_SpeedTST && cat result_SpeedTST');
 return $result;
 
 }
