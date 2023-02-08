@@ -100,8 +100,32 @@ if [[ $1 == "i" ]]; then
 		echo -e "✔️ $TLNAME telegram data was edited successfully."
 	fi
 
+	# Auto start on boot command (rc.local)
+	if [[ -f "$INSDIR"/index.php ]] && ! grep -q "PHPTeleBotWrt" /etc/rc.local; then
+		sed -i 's#exit 0##g' /etc/rc.local
+		cat << 'EOF' >> /etc/rc.local
+#PHPTeleBotWrt-Start
+PTBWDIR="/root/PHPTeleBotWrt"
+if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "php8-cli") > 0 ]];then cd "$PTBWDIR" && nohup php8-cli index.php &>/dev/null &; else cd "$PTBWDIR" && nohup php7-cli index.php &>/dev/null &; fi
+#PHPTeleBotWrt-End
+
+exit 0
+EOF
+		echo -e "$TLNAME added to startup (rc.local).."
+	fi
+
+	# Add bot to Scheduled Tasks (cron) command
+	if [[ -f "$INSDIR"/index.php ]] && ! grep -q "PHPTeleBotWrt" /etc/crontabs/root; then
+		sed -i 's#exit 0##g' /etc/crontabs/root
+		cat << 'EOF' >> /etc/crontabs/root
+#PHPTeleBotWrt-Start
+*/4 * * * * cd /root/PHPTeleBotWrt && php8-cli index.php
+EOF
+		echo -e "$TLNAME added to Scheduled Tasks (cron).."
+	fi
+
 	# Success notif
-	echo -e "✔️ $TLNAME installed successfully, you can run this program."
+	echo -e "✔️ $TLNAME installed successfully! Restart your device or you can wait for 5 mins until this software run automatically!."
 
 # Update command
 elif [[ $1 == "u" ]]; then
@@ -226,7 +250,7 @@ elif [[ $1 == "t" ]]; then
 		sed -i 's#exit 0##g' /etc/crontabs/root
 		cat << 'EOF' >> /etc/crontabs/root
 #PHPTeleBotWrt-Start
-*/5 * * * * cd /root/PHPTeleBotWrt && php8-cli index.php
+*/4 * * * * cd /root/PHPTeleBotWrt && php8-cli index.php
 EOF
 		echo -e "$TLNAME added to Scheduled Tasks (cron).."
 	else
