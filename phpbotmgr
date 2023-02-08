@@ -11,11 +11,12 @@ TLNAME="PHPTeleBotWrt"
 # Installer command
 if [[ $1 == "i" ]]; then
 	# Check package and install requirements
-	echo -e "Updating package repositories for $TLNAME..." && opkg update
+	echo -e "Updating package repositories for $TLNAME..."
 	
 	# Try install git, git-http, bc, screen is not installed
 	echo -e "Try to install git, git-http, bc, screen..." 
 	if [[ $(opkg list-installed | grep -c "^git -\|^git-http -\|bc -\|screen -") < 4 ]]; then
+		opkg update
 		pkgname="git"
 		if [[ $(opkg list-installed | grep -c "^$pkgname -") == "0" ]]; then echo -e "Installing [$pkgname]..." && opkg install $pkgname ; fi
 		pkgname="git-http"
@@ -32,6 +33,7 @@ if [[ $1 == "i" ]]; then
 	echo -e "Try to install php8/php7..." 
 	if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "^php8-cli\|^php7-cli") < 1 ]] && [[ $(ls {/usr/lib/php,/usr/lib/php8} | grep -c "^curl.so") < 1 ]];then
 		# install php7 if php8 is not available on the repo
+		opkg update
 		if [[ $(opkg list | grep -c "^php8-cli -") == 0 ]];then
 			# Try install php7
 			echo -e "Try to install php7 deps..." 
@@ -84,9 +86,11 @@ if [[ $1 == "i" ]]; then
 		echo -e "Backup found! Restoring $TLNAME databot backup..."
 		mv "$INSDIR"-databot.bak "$INSDIR"/databot
 	else
-		echo -n "💬 Enter Bot Token: "
+		echo -e "Bot Token Example: 52123745:ABeN1H9jc0I_7lIeyu_4aE8BZiV_fXt9TGk"
+		echo -n "💬 Enter Your Bot Token: "
 		read -r btoken
-		echo -n "🤖 Enter Bot Username (without @): "
+		echo -e "Bot Username Example: mamanxwrt"
+		echo -n "🤖 Enter Your Bot Username (without @): "
 		read -r buser
 
 		echo -e "\n🔨 Editing $TLNAME telegram data with your Bot Token & Bot Username..."
@@ -132,8 +136,10 @@ elif [[ $1 == "ra" ]] || [[ $1 == "rx" ]]; then
 elif [[ $1 == "e" ]]; then
 	# Edit databot CMD
 	echo -e "Editing $TLNAME databot..."
+	echo -e "Bot Token Example: 52123745:ABeN1H9jc0I_7lIeyu_4aE8BZiV_fXt9TGk"
 	echo -n "💬 Enter Bot Token: "
 	read -r btoken
+	echo -e "Bot Username Example: mamanxwrt"
 	echo -n "🤖 Enter Bot Username (without @): "
 	read -r buser
 
