@@ -1,6 +1,16 @@
 # PHPTeleBotWrt
 Telegram bot framework written in PHP for OpenWRT
 
+## Index Page
+- [Features](#Features)
+- [Requirements](#Requirements)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [Command lists](#Command-lists)
+- [Screenshots](#Screenshots)
+- [Tested on](#Tested-on)
+- [Known Bugs](#Known-Bugs)
+
 ## Features
 * Support PHP7 & PHP8 hybrid installation.
 * Support Long Polling and Webhook.
@@ -180,7 +190,7 @@ Add/remove **PHPTeleBotWrt** to Auto-startup **`LuCI - System - Scheduled Tasks`
  ↳/ping : Ping bot
 ```
 
-## 📷 Screenshots
+## Screenshots
 
 <details>
 <summary><h5>start on terminal</h5> (click to see screenshot)</summary>
