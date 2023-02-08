@@ -250,9 +250,13 @@ $bot->cmd("/sh", function ($bashXmd) {
 	// return $runsh;
 	
 	Bot::sendMessage(
-		$GLOBALS["banner"] . "\n" .
+		$GLOBALS["banner"]
+		,$GLOBALS["options"]);
+	Bot::sendMessage(
 		"<code>" . $runsh ."</code>"
-		. "\n\n" . $GLOBALS["randAds"]
+		,$GLOBALS["options"]);
+	Bot::sendMessage(
+		$GLOBALS["randAds"]
 		,$GLOBALS["options"]);
 
 	$rmrunsh = shell_exec("rm rpbXz && rm $tzX");
