@@ -100,6 +100,8 @@ $bot->cmd("/cmdlist", function () {
  ↳/sysinfo : System Information
  ↳/memory : Memory status 
  ↳/sh commandSample : Run custom command in bash terminal
+ ↳/rs ls : List of compatible app restart
+ ↳/rs appname : Restart app in init.d
  
 📁Power System
  ↳/reboot : Reboot OpenWrt
@@ -223,6 +225,38 @@ $bot->cmd("/rm", function ($rmfile) {
 		Bot::sendMessage(
 		"Please input correct command. Example: <code>/rm /folder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/rm /folder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
 		,$GLOBALS["options"]);
+    }
+});
+
+//restart init file cmd
+$bot->cmd("/rs", function ($app = 'ls') {
+    $appPath = "/etc/init.d/$app";
+	if ($app === 'ls' && !file_exists($appPath)) {
+		//$dtIX = shell_exec("ls -l /etc/init.d | awk '{print$9}'");
+		$dtIX = shell_exec("src/plugins/getinitapp.sh > listInit && cat listInit");
+		Bot::sendMessage(
+			"This command allow you to restart an app listed below." . "\n" .
+			"Example: <code>/rs openclash</code>" . "\n" .
+			"List of supported apps:" . "\n" .
+			"###########" . "\n" .
+			"<code>" . $dtIX . "</code>..." . "\n" .
+			"###########" 
+			,$GLOBALS["options"]);
+		unset($dtIX);
+    } else {
+		$grepST = shell_exec("grep -c restart $appPath");
+		if ($grepST === 0) {
+			$rextat = shell_exec("$appPath start >/dev/null 2>&1 &");
+		} else {
+			$rextat = shell_exec("$appPath restart >/dev/null 2>&1 &");
+		}
+		Bot::sendMessage(
+			$GLOBALS["banner"] . "\n" .
+			"Restarting <code>" . $app . "</code>..." . "\n\n" .
+			"Run <code>/rs ls</code> to see listed supported apps"
+			. "\n\n" . $GLOBALS["randAds"]
+			,$GLOBALS["options"]);
+		unset($grepST);
     }
 });
 
