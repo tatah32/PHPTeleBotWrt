@@ -305,5 +305,9 @@ Add/remove **PHPTeleBotWrt** to Auto-startup **`LuCI - System - Scheduled Tasks`
 * [**HelmiWrt OS PHP8, Latest OpenClash**](https://www.cararegistrasi.com/nMfJevPD5cn4) -> Working Perfectly
 
 ## Known Bugs
-- `/netcl` not support adguard dhcp
-- Sometimes **PHPTeleBotWrt** running status checker not work
+- `/netcl` not support adguard dhcp.
+- Sometimes **PHPTeleBotWrt** running status checker not work.
+- `/cp` and `/mv` not work sometimes.
+- `/sh` max limit message 4,096 characters.
+- `/upf` upload max limit 50mb.
+- Read more telegram limitation [here](https://limits.tginfo.me/en).
