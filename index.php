@@ -180,7 +180,7 @@ $bot->cmd("/dlf", function ($filedir) {
 
 //copy file cmd
 $bot->cmd("/cp", function ($cpold, $cpnew) {
-    if (file_exists($cpold) && file_exists($cpnew)) {
+    if (file_exists($cpold) && !file_exists($cpnew)) {
 		$copied = shell_exec("cp \"$cpold\" \"$cpnew\"");
 		Bot::sendMessage(
 			$GLOBALS["banner"] . "\n" .
@@ -196,7 +196,7 @@ $bot->cmd("/cp", function ($cpold, $cpnew) {
 
 //move file cmd
 $bot->cmd("/mv", function ($mvold, $mvnew) {
-    if (file_exists($mvold) && file_exists($mvnew)) {
+    if (file_exists($mvold) && !file_exists($mvnew)) {
 		$copied = shell_exec("cp \"$mvold\" \"$mvnew\" && rm -f \"$mvold\"");
 		Bot::sendMessage(
 			$GLOBALS["banner"] . "\n" .
@@ -206,22 +206,6 @@ $bot->cmd("/mv", function ($mvold, $mvnew) {
     } else {
 		Bot::sendMessage(
 		"Please input correct command. Example: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
-		,$GLOBALS["options"]);
-    }
-});
-
-//delete file cmd
-$bot->cmd("/rm", function ($rmfile) {
-    if (file_exists($rmfile)) {
-		$copied = shell_exec("rm -f \"$rmfile\"");
-		Bot::sendMessage(
-			$GLOBALS["banner"] . "\n" .
-			"File <code>$rmfile</code> deleted!.\nFile <code>$rmfile</code> telah dihapus!."
-			. "\n\n" . $GLOBALS["randAds"]
-			,$GLOBALS["options"]);
-    } else {
-		Bot::sendMessage(
-		"Please input correct command. Example: <code>/rm /folder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/rm /folder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
 		,$GLOBALS["options"]);
     }
 });
