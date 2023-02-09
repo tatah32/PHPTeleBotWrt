@@ -90,8 +90,8 @@ $bot->cmd("/cmdlist", function () {
  ↳/setxl 087 : Set default number
 
 📁File Manager
- ↳/upf : Upload a file to OpenWrt
- ↳/dlf : Get/retrieve a file from OpenWrt
+ ↳/ul : Upload a file to OpenWrt
+ ↳/dl : Get/retrieve a file from OpenWrt
  ↳/cp : Copy a file to another folder
  ↳/mv : Move a file to another folder
  ↳/rm : Delete a file
@@ -127,13 +127,13 @@ $bot->on('document', function() {
     $message = Bot::message();
 	$fileName = $message['document']['file_name'];
     Bot::sendMessage(
-		"File <code>$fileName</code> uploaded to Telegram server. Reply uploaded file with command <code>/upf /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder.". "\n\n" .
-		"File <code>$fileName</code> telah diunggah ke server Telegram. Balas file yang sudah di unggah dengan perintah <code>/upf /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> dengan folder tujuan anda."
+		"File <code>$fileName</code> uploaded to Telegram server. Reply uploaded file with command <code>/ul /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder.". "\n\n" .
+		"File <code>$fileName</code> telah diunggah ke server Telegram. Balas file yang sudah di unggah dengan perintah <code>/ul /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> dengan folder tujuan anda."
 		,$GLOBALS["options"]);
  });
 
 //upload cmd
-$bot->cmd("/upf", function ($filedir) {
+$bot->cmd("/ul", function ($filedir) {
     $token = readToken("token");
     $message = Bot::message();
 	$filePath = $filedir;
@@ -149,8 +149,8 @@ $bot->cmd("/upf", function ($filedir) {
 	} else {
 		$pesan_upf = "Directory<code>$filedir</code> is invalid!." . "\n" .
 		"Folder<code>$filedir</code> tidak valid!." . "\n\n" .
-		"Upload a file to a directory on OpenWrt.\n- Only support single file upload.\n- Reply uploaded file with command <code>/upf /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder." . "\n\n" .
-		"Unggah berkas ke folder tertentu di OpenWrt\n- Hanya mendukung upload satu file saja.\n- Balas file yang sudah di unggah dengan perintah <code>/upf /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> ke folder tujuan anda.";
+		"<strong><u>OpenWrt File Uploader</u></strong>\n- Upload a file to this chat first.\n- Then reply uploaded file with command <code>/ul /folder/folder_dest</code> to upload it to that folder. Change <code>/folder/folder_dest</code> to your own destination folder.\n- Only support single file upload." . "\n\n" .
+		"<strong><u>Pengunggah Berkas OpenWrt</u></strong>\n- Unggah file ke chat ini terlebih dahulu.\n- Lalu balas file yang sudah di unggah dengan perintah <code>/ul /folder/folder_dest</code> untuk mengunggahnya ke folder tersebut. Ubah <code>/folder/folder_dest</code> ke folder tujuan anda.\n- Hanya mendukung upload satu file saja.";
 	}
 	
 	Bot::sendMessage(
@@ -162,7 +162,7 @@ $bot->cmd("/upf", function ($filedir) {
 
 //download/retrieve file from openwrt cmd
 // curl -F document=@\"/filepath/filename\" \"https://api.telegram.org/bot5227493446:AAGN1BeLV0I_7KIAyq_4aE6BZfH_fXq9yGQ/sendDocument?chat_id=236082523\"
-$bot->cmd("/dlf", function ($filedir) {
+$bot->cmd("/dl", function ($filedir) {
     $token = readToken("token");
     $message = Bot::message();
     $chat_dest = $message['from']['id'];
@@ -175,7 +175,7 @@ $bot->cmd("/dlf", function ($filedir) {
 			,$GLOBALS["options"]);
 	} else {
 		Bot::sendMessage(
-		"Please input correct command. Example: <code>/dlf /folder1/filename.ext</code>.\n Or file doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/dlf /folder1/filename.ext</code>\n Atau mungkin file tidak ada di server."
+		"Please input correct command. Example: <code>/dl /folder1/filename.ext</code>.\n Or file doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/dl /folder1/filename.ext</code>\n Atau mungkin file tidak ada di server."
 		,$GLOBALS["options"]);
 	}
 });
@@ -207,7 +207,7 @@ $bot->cmd("/mv", function ($mvold, $mvnew) {
 			,$GLOBALS["options"]);
     } else {
 		Bot::sendMessage(
-		"Please input correct command. Example: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
+		"Please input correct command. Example: <code>/mv /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/mv /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
 		,$GLOBALS["options"]);
     }
 });
