@@ -13,14 +13,19 @@ if [[ $1 == "i" ]]; then
 	# Check package and install requirements
 	echo -e "Updating package repositories for $TLNAME..."
 	# [ -f /var/lock/opkg.lock ] && rm -f /var/lock/opkg.lock
-	opkg update
+	
 	oIns="opkg install"
 	InsTxt="Installing"
 	gbsPkg=$( opkg list-installed | grep -c "^git -\|^git-http -\|^bc -\|screen -" )
 	p7Pkg=$( opkg list-installed | grep -c "^php7-cli -\|^php7-mod-curl -" )
 	p8Pkg=$( opkg list-installed | grep -c "^php8-cli -\|^php8-mod-curl -" )
 	
-	
+	# Checking if packages installed
+	if [[ $gbsPkg -lt 4 ]] && [[ $p7Pkg -lt 2 || $p8Pkg -lt 2 ]]; then
+		echo "All/some required packages is not installed correctly or something wrong, exiting manager..."
+		opkg update
+	fi
+
 	# Try install git, git-http, bc, screen is not installed
 	if [[ $gbsPkg -lt 4 ]]; then
 		echo -e "Try to install git, git-http, bc, screen if not installed..." 
@@ -92,15 +97,22 @@ if [[ $1 == "i" ]]; then
 		mv "$INSDIR"-databot.bak "$INSDIR"/databot
 	else
 		echo -e "Bot Token Example: 52123745:ABeN1H9jc0I_7lIeyu_4aE8BZiV_fXt9TGk"
-		echo -n "💬 Enter Your Bot Token: "
+		echo -e "💬 Enter Your Bot Token: "
+		echo -n "==>> "
 		read -r btoken
-		echo -e "Bot Username Example: mamanxwrt"
-		echo -n "🤖 Enter Your Bot Username (without @): "
+		echo -e "Bot Username Example: mamanxwrt_bot"
+		echo -e "🤖 Enter Your Bot Username (without @): "
+		echo -n "==>> "
 		read -r buser
+		echo -e "Personal Account UID Example: 234321234"
+		echo -e "🤖 Enter Your Personal Account UID: "
+		echo -n "==>> "
+		read -r userid
 
 		echo -e "\n🔨 Editing $TLNAME telegram data with your Bot Token & Bot Username..."
 		echo -e "$btoken" > "$INSDIR"/databot
 		echo -e "$buser" >> "$INSDIR"/databot
+		echo -e "$userid" >> "$INSDIR"/databot
 
 		echo -e "✔️ $TLNAME telegram data was edited successfully."
 	fi
@@ -130,7 +142,23 @@ EOF
 	fi
 
 	# Success notif
-	echo -e "✔️ $TLNAME installed successfully! Restart your device or you can wait for 5 mins until this software run automatically!."
+	successTxt="✔️ $TLNAME installed successfully! Restart your device or you can wait for 5 mins until this software run automatically!."
+	echo -e "$successTxt"
+
+	# Send message to Bot for testing
+	botTknTst=$(sed -n '1p' "$INSDIR"/databot)
+	botUsrTst=$(sed -n '2p' "$INSDIR"/databot)
+	AccUID=$(sed -n '3p' "$INSDIR"/databot)
+	logF="PHPTeleBotWrt-CurlBotLog"
+	curl -s -X POST "https://api.telegram.org/bot$botTknTst/sendMessage" -d chat_id="$AccUID" -d text="${successTxt}" > "$logF"
+	if grep -q "error_code" "$logF"; then
+		echo "But error occurs when sending message to bot:"
+		cat "$logF"
+		rm -f "$logF"
+	else
+		rm -f "$logF"
+	fi
+
 
 # Update command
 elif [[ $1 == "u" ]]; then
@@ -163,20 +191,51 @@ elif [[ $1 == "ra" ]] || [[ $1 == "rx" ]]; then
 
 # Edit databot command
 elif [[ $1 == "e" ]]; then
+	# Get older databot
+	botTknTst=$(sed -n '1p' "$INSDIR"/databot)
+	botUsrTst=$(sed -n '2p' "$INSDIR"/databot)
+	AccUID=$(sed -n '3p' "$INSDIR"/databot)
+	
 	# Edit databot CMD
 	echo -e "Editing $TLNAME databot..."
 	echo -e "Bot Token Example: 52123745:ABeN1H9jc0I_7lIeyu_4aE8BZiV_fXt9TGk"
-	echo -n "💬 Enter Bot Token: "
-	read -r btoken
-	echo -e "Bot Username Example: mamanxwrt"
-	echo -n "🤖 Enter Bot Username (without @): "
-	read -r buser
+	echo -e "💬 Enter New Bot Token: (leave empty if no change)"
+	echo -n "==>> "
+	read -r newbtoken
+	[[ ! -z $newbtoken ]] && sed -i "s#$botTknTst#$newbtoken#g" "$INSDIR"/databot
+	echo -e "Bot Username Example: mamanxwrt_bot"
+	echo -e "🤖 Enter New Bot Username (without @): (leave empty if no change)"
+	echo -n "==>> "
+	read -r newbuser
+	[[ ! -z $newbuser ]] && sed -i "s#$botUsrTst#$newbuser#g" "$INSDIR"/databot
+	echo -e "Personal Account UID Example: 234321234"
+	echo -e "🤖 Enter Your New Personal Account UID: (leave empty if no change)"
+	echo -n "==>> "
+	read -r newuserid
+	[[ ! -z $newuserid ]] && sed -i "s#$AccUID#$newuserid#g" "$INSDIR"/databot
 
-	echo -e "\n🔨 Setting up $TLNAME with new data..."
-	echo -e "$btoken" > "$INSDIR"/databot
-	echo -e "$buser" >> "$INSDIR"/databot
+	# Success notif
+	successTxt="✔️ $TLNAME telegram data updated successfully."
+	echo -e "$successTxt"
+	
+	# Get new databot
+	unset botTknTst
+	unset botUsrTst
+	unset AccUID
+	botTknTst=$(sed -n '1p' "$INSDIR"/databot)
+	botUsrTst=$(sed -n '2p' "$INSDIR"/databot)
+	AccUID=$(sed -n '3p' "$INSDIR"/databot)
 
-	echo -e "✔️ $TLNAME telegram data was edited successfully."
+	# Send message to Bot for testing
+	logF="PHPTeleBotWrt-CurlBotLog"
+	curl -s -X POST "https://api.telegram.org/bot$botTknTst/sendMessage" -d chat_id="$AccUID" -d text="${successTxt}" > "$logF"
+	if grep -q "error_code" "$logF"; then
+		echo "But error occurs when sending message to bot:"
+		cat "$logF"
+		rm -f "$logF"
+	else
+		rm -f "$logF"
+	fi
 
 # Runner/starter command
 elif [[ $1 == "r" ]]; then
