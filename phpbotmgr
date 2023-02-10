@@ -11,7 +11,6 @@ TLNAME="PHPTeleBotWrt"
 # Installer command
 if [[ $1 == "i" ]]; then
 	# Check package and install requirements
-	echo -e "Updating package repositories for $TLNAME..."
 	# [ -f /var/lock/opkg.lock ] && rm -f /var/lock/opkg.lock
 	
 	oIns="opkg install"
@@ -22,7 +21,8 @@ if [[ $1 == "i" ]]; then
 	
 	# Checking if packages installed
 	if [[ $gbsPkg -lt 4 ]] && [[ $p7Pkg -lt 2 || $p8Pkg -lt 2 ]]; then
-		echo "All/some required packages is not installed correctly or something wrong, exiting manager..."
+		echo -e "All/some required packages is not installed correctly or something wrong...."
+		echo -e "Updating package repositories for $TLNAME..."
 		opkg update
 	fi
 
