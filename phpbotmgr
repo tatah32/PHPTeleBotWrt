@@ -201,8 +201,9 @@ elif [[ $1 == "u" ]]; then
 	# Restore databot if available
 	[ -e "$INSDIR"-databot.bak ] && echo -e "Backup found! Restoring $TLNAME databot backup..." && mv "$INSDIR"-databot.bak "$INSDIR"/databot
 	
-	cp -f "$INSDIR/phpbotmgr" "/root/phpbotmgr"
-	chmod 0755 "/root/phpbotmgr"
+	echo -e "cp -f /root/PHPTeleBotWrt/phpbotmgr /root/phpbotmgr && chmod 0755 /root/phpbotmgr" > /tmp/phpbotmgr_updater
+	chmod 0755 /tmp/phpbotmgr_updater
+	sh /tmp/phpbotmgr_updater
 
 # Remover/Uninstaller command
 elif [[ $1 == "ra" ]] || [[ $1 == "rx" ]]; then
