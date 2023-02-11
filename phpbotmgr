@@ -201,7 +201,7 @@ elif [[ $1 == "u" ]]; then
 	# Restore databot if available
 	[ -e "$INSDIR"-databot.bak ] && echo -e "Backup found! Restoring $TLNAME databot backup..." && mv "$INSDIR"-databot.bak "$INSDIR"/databot
 	
-	cat "$INSDIR/phpbotmgr" > "/root/phpbotmgr"
+	cp -f "$INSDIR/phpbotmgr" "/root/phpbotmgr"
 	chmod 0755 "/root/phpbotmgr"
 
 # Remover/Uninstaller command
