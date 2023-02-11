@@ -85,6 +85,8 @@ msgBotTest () {
 	fi
 }
 
+[ -e /tmp/phpbotmgr_updater ] && rm -f /tmp/phpbotmgr_updater
+
 # Installer commands
 if [[ $1 == "i" ]]; then
 	# Check package and install requirements
