@@ -85,8 +85,6 @@ msgBotTest () {
 	fi
 }
 
-[ -e /tmp/phpbotmgr_updater ] && rm -f /tmp/phpbotmgr_updater
-
 # Installer commands
 if [[ $1 == "i" ]]; then
 	# Check package and install requirements
@@ -206,6 +204,7 @@ elif [[ $1 == "u" ]]; then
 	echo -e "cp -f /root/PHPTeleBotWrt/phpbotmgr /root/phpbotmgr && chmod 0755 /root/phpbotmgr" > /tmp/phpbotmgr_updater
 	chmod 0755 /tmp/phpbotmgr_updater
 	sh /tmp/phpbotmgr_updater
+	rm -f /tmp/phpbotmgr_updater #[ -e /tmp/phpbotmgr_updater ] && 
 
 # Remover/Uninstaller command
 elif [[ $1 == "ra" ]] || [[ $1 == "rx" ]]; then
