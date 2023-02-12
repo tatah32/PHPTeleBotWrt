@@ -10,6 +10,7 @@ Telegram bot framework written in PHP for OpenWRT
 - [Screenshots](#Screenshots)
 - [Tested on](#Tested-on)
 - [Known Bugs](#Known-Bugs)
+- [Reports](#Reports)
 - [Developers](#Developers)
 
 ## Features
@@ -328,6 +329,9 @@ Add/remove **PHPTeleBotWrt** to Auto-startup **`LuCI - System - Scheduled Tasks`
 - `/sh` max limit message 4,096 characters.
 - `/upf` upload max limit 50mb.
 - Read more telegram limitation [here](https://limits.tginfo.me/en).
+
+## Reports
+[Join our Telegram Group](https://helmiau.com/tgg).
 
 ## Developers
 - [**Pringgo Radianto (Radya)**](https://github.com/radyakaze/phptelebot) - PHPTeleBot Base Development.
