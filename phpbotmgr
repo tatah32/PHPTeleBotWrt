@@ -178,7 +178,7 @@ if [[ $1 == "i" ]]; then
 	fi
 
 	# Success notif
-	successTxt="✔️ $TLNAME installed successfully! Restart your device or you can wait for 5 mins until this software run automatically!."
+	successTxt="✔️ $TLNAME installed successfully! Wait for 5 mins until this software run automatically!."
 	echo -e "$successTxt"
 
 	# Send message to Bot for testing
