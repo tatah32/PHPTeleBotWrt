@@ -43,15 +43,14 @@ bootX () {
 		sed -i 's#exit 0##g' /etc/rc.local
 		cat << 'EOF' >> /etc/rc.local
 #PHPTeleBotWrt-Start
-PTBWDIR="/root/PHPTeleBotWrt"
-if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "^php8-cli") > 0 ]];then cd "$PTBWDIR" && nohup php8-cli index.php &>/dev/null &; else cd "$PTBWDIR" && nohup php7-cli index.php &>/dev/null &; fi
+cd /root/PHPTeleBotWrt && if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "^php8-cli") > 0 ]];then nohup php8-cli index.php &>/dev/null &;else nohup php7-cli index.php &>/dev/null &; fi
 #PHPTeleBotWrt-End
 
 exit 0
 EOF
 		echo -e "$TLNAME added to startup (rc.local).."
 	else
-		sed -i -e '/PHPTeleBotWrt-Start/,+4d' /etc/rc.local
+		sed -i -e '/PHPTeleBotWrt-Start/,+3d' /etc/rc.local
 		echo -e "$TLNAME removed from startup (rc.local).."
 	fi
 }
@@ -62,7 +61,7 @@ cronX () {
 		sed -i 's#exit 0##g' /etc/crontabs/root
 		cat << 'EOF' >> /etc/crontabs/root
 #PHPTeleBotWrt-Start
-*/4 * * * * cd /root/PHPTeleBotWrt && php8-cli index.php
+*/4 * * * * cd /root/PHPTeleBotWrt && if [[ $(ls {/bin,/usr/bin,/usr/sbin} | grep -c "^php8-cli") > 0 ]];then php8-cli index.php;else php7-cli index.php; fi
 EOF
 		echo -e "$TLNAME added to Scheduled Tasks (cron).."
 	else
