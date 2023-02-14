@@ -51,20 +51,20 @@ $bot->cmd("/start", function () {
 
 // list of commands
 $bot->cmd("/cmdlist", function () {
-	unset $check_cron_stat
     $check_cron_stat = shell_exec("grep -c 'PHPTeleBotWrt' '/etc/crontabs/root'");
     if ($check_cron_stat === 0) {
         $cron_stat = "NOT ACTIVE";
     } else {
         $cron_stat = "ACTIVE";
     }
-	unset $check_boot_stat
+	unset $check_cron_stat
     $check_boot_stat = shell_exec("grep -c 'PHPTeleBotWrt' '/etc/rc.local'");
     if ($check_boot_stat === 0) {
         $boot_stat = "NOT ACTIVE";
     } else {
         $boot_stat = "ACTIVE";
     }
+	unset $check_boot_stat
 	Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
 "📁PHPTeleBotWrt Manager
