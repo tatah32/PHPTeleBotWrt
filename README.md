@@ -1,8 +1,6 @@
-# PHPTeleBotWrt
-Telegram bot framework written in PHP for OpenWRT
 
 <h4 align="center">All information about this software, features, installations, screenshots, video preview and installation, credits etc. can be found at</h4>
-<h3 align="center"><a href="https://www.helmiau.com/blog/phptelebotwrt">Helmi Amirudin | HelmiWrt OS is Customized OpenWrt Firmware</a></h3>
+<h3 align="center"><a href="https://www.helmiau.com/blog/phptelebotwrt">PHPTeleBotWrt - Telegram bot framework written in PHP for OpenWRT</a></h3>
 <h4 align="center">because it has translations feature. This will make it easier for you to understand each point.</h4>
 
 
