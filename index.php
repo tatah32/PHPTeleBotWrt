@@ -160,6 +160,15 @@ $bot->cmd("/ul", function ($filedir) {
 		"$pesan_upf"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
+	
+	unset($token);
+	unset($message);
+	unset($filePath);
+	unset($fileInfo);
+	unset($fileName);
+	unset($fileId);
+	unset($raw);
+	unset($file_server_path);
 });
 
 //download/retrieve file from openwrt cmd
@@ -180,6 +189,9 @@ $bot->cmd("/dl", function ($filedir) {
 		"Please input correct command. Example: <code>/dl /folder1/filename.ext</code>.\n Or file doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/dl /folder1/filename.ext</code>\n Atau mungkin file tidak ada di server."
 		,$GLOBALS["options"]);
 	}
+	unset($token);
+	unset($message);
+	unset($chat_dest);
 });
 
 //copy file cmd
@@ -196,6 +208,8 @@ $bot->cmd("/cp", function ($cpold, $cpnew) {
 		"Please input correct command. Example: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/cp /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
 		,$GLOBALS["options"]);
     }
+	unset($cpold);
+	unset($cpnew);
 });
 
 //move file cmd
@@ -212,6 +226,8 @@ $bot->cmd("/mv", function ($mvold, $mvnew) {
 		"Please input correct command. Example: <code>/mv /oldfolder/file.txt /newfolder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/mv /oldfolder/file.txt /newfolder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
 		,$GLOBALS["options"]);
     }
+	unset($mvold);
+	unset($mvnew);
 });
 
 //delete file cmd
@@ -228,6 +244,7 @@ $bot->cmd("/rm", function ($rmfile) {
 		"Please input correct command. Example: <code>/rm /folder/file.txt</code>.\n Or file source/destination doesn't exists on the server.\n\nTulis perintah dengan benar. Contoh: <code>/rm /folder/file.txt</code>\n Atau mungkin file asal/tujuan tidak ada di server."
 		,$GLOBALS["options"]);
     }
+	unset($rmfile);
 });
 
 //restart init file cmd
