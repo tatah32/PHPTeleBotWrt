@@ -190,7 +190,7 @@ suhu_xc() {
 }
 
 catatan() {
-	printf "Mod: XppaiWRT x PHPTeleBotWrt"
+	printf "Mod: 𝕄𝕚𝕔𝕣𝕠𝕤𝕠𝕗𝕥 × 𝕊𝕋𝔹"
 }
 
 print_machine() {
