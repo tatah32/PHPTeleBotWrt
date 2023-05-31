@@ -18,12 +18,7 @@ $bot = new PHPTelebot(readToken("token"), readToken("username"));
 
 // random messages
 $ads = [
-		"<span class='tg-spoiler'>Donate me: <a href='https://helmiau.com/pay'>https://helmiau.com/pay</a>.</span>",
-		"<span class='tg-spoiler'>Keep PHPTeleBotWrt up-to-date with <code>phpmgrbot u</code> command in Terminal or through /botup command in telegram bot chat.</span>",
-		"<span class='tg-spoiler'>Read PHPTeleBotWrt wiki and information <a href='https://www.helmiau.com/blog/phptelebotwrt'>here</a>.</span>",
-		"<span class='tg-spoiler'>PHPTeleBotWrt devs: <a href='https://github.com/radyakaze/phptelebot'>radyakaze</a>, <a href='https://github.com/OppaiCyber/XppaiWRT'>OppaiCyber-XppaiWRT</a>, <a href='https://github.com/xentolopx/eXppaiWRT'>xentolopx-eXppaiWRT</a> and <a href='https://helmiau.com/pay'>Helmi Amirudin</a>.</span>",
-		"<span class='tg-spoiler'>Make sure your device always connected to network.</span>",
-        "<span class='tg-spoiler'>Support eXppaiWRT to by sending fund to BCA : 0131630831 | DANA / OVO : 087837872813 | Dimas Syahrul Hidayat</span>",
+		"<span class='tg-spoiler'>Contack me: <a href='wa.me/6287782777597'>wa.me/6287782777597</a>.</span>",
     ];
 $randAds = $ads[array_rand($ads)];
 
@@ -44,7 +39,7 @@ $bot->cmd("/ping", function () {
 $bot->cmd("/start", function () {
     Bot::sendMessage(
 		$GLOBALS["banner"] . "\n" .
-		"Welcome to PHPTeleBotWrt!\nRun /cmdlist to see all available comands.\n\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Donate: https://helmiau.com/pay"
+		"Welcome to PHPTeleBotWrt!\nRun /cmdlist to see all available comands.\n\n Source: https://github.com/helmiau/PHPTeleBotWrt\n Contact: wa.me/6287782777597"
 		. "\n\n" . $GLOBALS["randAds"]
 		,$GLOBALS["options"]);
 });
